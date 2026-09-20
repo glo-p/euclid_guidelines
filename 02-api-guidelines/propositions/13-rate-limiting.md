@@ -9,15 +9,15 @@
 
 ## Statement
 
-Every API SHOULD have a rate limit per client (Def. II.13) enforced at the edge and declared in the contract's `info.description`. When a limit is exceeded the response MUST be `429` with a Problem of type `…/rate-limited` and a `Retry-After` header. Responses SHOULD carry the IETF `RateLimit` and `RateLimit-Policy` headers so clients can pace themselves before hitting `429`.
+Every API SHOULD have a rate limit per client ([Def. II.13](../definitions.md#Def.%20II.13%20-%20Client)) enforced at the edge and declared in the contract's `info.description`. When a limit is exceeded the response MUST be `429` with a Problem of type `…/rate-limited` and a `Retry-After` header. Responses SHOULD carry the IETF `RateLimit` and `RateLimit-Policy` headers so clients can pace themselves before hitting `429`.
 
 ## Given
 
-Def. II.12, Post. I.4, Post. II.5, CN 3, CN 6, Prop. II.3, II.4.
+[Def. II.12](../definitions.md#Def.%20II.12%20-%20Edge), [Post. I.4](../../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance), [Prop. II.3](03-methods-and-status-codes.md), [II.4](04-problem-details.md).
 
 ## Demonstration
 
-Consumers we do not deploy (Post. II.5) will retry under Post. I.4, sometimes in tight loops; without a limit one client can deny service to the rest. The limit is part of what the consumer may rely on and so belongs in the contract (CN 3). Signalling the remaining budget is the producer's half of CN 6: it lets a well-behaved consumer avoid the error rather than merely receive it. ∎ Q.E.D.
+Consumers we do not deploy ([Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)) will retry under [Post. I.4](../../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network), sometimes in tight loops; without a limit one client can deny service to the rest. The limit is part of what the consumer may rely on and so belongs in the contract ([CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit)). Signalling the remaining budget is the producer's half of [CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance): it lets a well-behaved consumer avoid the error rather than merely receive it. ∎ Q.E.D.
 
 ## Corollaries
 

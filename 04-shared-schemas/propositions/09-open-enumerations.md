@@ -9,20 +9,20 @@
 
 ## Statement
 
-A string-valued field with a known set of values MUST be declared as an open enumeration (Def. IV.6): `type: string`, a `pattern` of `^[a-z0-9]+(-[a-z0-9]+)*$`, and `x-known-values` listing the current values with a description each. It MUST be declared closed (`enum`) only when the schema's description states why the set cannot grow (a legal or mathematical fixed set, or a value the *consumer* sends and the producer must reject if unknown). Adding a value to an open enumeration is a compatible change (Def. I.15); consumers MUST handle an unknown value without failing, typically by treating it as "other" and logging.
+A string-valued field with a known set of values MUST be declared as an open enumeration ([Def. IV.6](../definitions.md#Def.%20IV.6%20-%20Open%20Enumeration)): `type: string`, a `pattern` of `^[a-z0-9]+(-[a-z0-9]+)*$`, and `x-known-values` listing the current values with a description each. It MUST be declared closed (`enum`) only when the schema's description states why the set cannot grow (a legal or mathematical fixed set, or a value the *consumer* sends and the producer must reject if unknown). Adding a value to an open enumeration is a compatible change ([Def. I.15](../../01-foundations/definitions.md#Def.%20I.15%20-%20Compatible%20Change)); consumers MUST handle an unknown value without failing, typically by treating it as "other" and logging.
 
 ## Given
 
-Def. I.14, Def. I.15, Def. IV.6, Post. I.5, CN 3, CN 4, CN 6.
+[Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change), [Def. I.15](../../01-foundations/definitions.md#Def.%20I.15%20-%20Compatible%20Change), [Def. IV.6](../definitions.md#Def.%20IV.6%20-%20Open%20Enumeration), [Post. I.5](../../01-foundations/postulates.md#Post.%20I.5%20-%20Independent%20Evolution), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 4](../../01-foundations/common-notions.md#CN%204%20-%20Compatibility%20Is%20Compositional), [CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance).
 
 ## Demonstration
 
-Almost every enumeration in a business system grows (a new order status, a new payment method). If it is closed, each growth is a breaking change (Def. I.14) and, by CN 4, a new major of every contract that embeds it, which under Post. I.5 means a migration for every consumer for the sake of one string. If it is open, growth is compatible, and CN 6 already requires consumers to tolerate what they do not know. The cost is that generated types cannot be exhaustive `switch`es, which is exactly the right cost: the consumer's code is forced to have a default branch. The set is still published (CN 3) so that consumers know what to expect today. Input enumerations are the exception because there the *producer* is the one that must reject the unknown. ∎ Q.E.D.
+Almost every enumeration in a business system grows (a new order status, a new payment method). If it is closed, each growth is a breaking change ([Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change)) and, by [CN 4](../../01-foundations/common-notions.md#CN%204%20-%20Compatibility%20Is%20Compositional), a new major of every contract that embeds it, which under [Post. I.5](../../01-foundations/postulates.md#Post.%20I.5%20-%20Independent%20Evolution) means a migration for every consumer for the sake of one string. If it is open, growth is compatible, and [CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance) already requires consumers to tolerate what they do not know. The cost is that generated types cannot be exhaustive `switch`es, which is exactly the right cost: the consumer's code is forced to have a default branch. The set is still published ([CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit)) so that consumers know what to expect today. Input enumerations are the exception because there the *producer* is the one that must reject the unknown. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. IV.9.1** - Generated C# types for open enumerations are `readonly record struct` string wrappers with static known members, not `enum`. TypeScript types are `KnownStatus | (string & {})`.
-* **Cor. IV.9.2** - Removing a value from `x-known-values` is a breaking change unless the value has not been emitted for the deprecation period (Book IX).
+* **Cor. IV.9.2** - Removing a value from `x-known-values` is a breaking change unless the value has not been emitted for the deprecation period ([Book IX](../../09-versioning-and-deprecation/README.md)).
 * **Cor. IV.9.3** - `Operation.status`, `Health.status`, `AuditEvent.outcome` and `EventEnvelope.dataclassification` are closed, with the reason stated in their descriptions.
 
 ## Construction
@@ -41,4 +41,4 @@ Almost every enumeration in a business system grows (a new order status, a new p
 
 ## Conformance
 
-Spectral / catalogue rule `enum-is-open-or-justified`: any `enum` keyword on an output schema must be accompanied by a description containing the phrase "closed because". Consumer contract tests (Prop. III.12) deliver an unknown value for every open enumeration.
+Spectral / catalogue rule `enum-is-open-or-justified`: any `enum` keyword on an output schema must be accompanied by a description containing the phrase "closed because". Consumer contract tests ([Prop. III.12](../../03-events/propositions/12-consumer-contracts-and-testing.md)) deliver an unknown value for every open enumeration.

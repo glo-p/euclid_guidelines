@@ -9,11 +9,11 @@
 
 ## Statement
 
-To construct a publisher and a consumer satisfying Prop. III.1 to III.13 from a single starting point. Every service that publishes or consumes SHOULD use `Company.Platform.Messaging` and the `company-consumer` template (`dotnet new company-consumer`), and SHOULD host consumers on AWS Lambda with an SQS event source (Prop. VIII.3) or, where the service already runs on ECS, as a hosted `BackgroundService` using the same pipeline. MassTransit MAY be used as the transport abstraction provided the platform pipeline behaviours are installed.
+To construct a publisher and a consumer satisfying [Prop. III.1](01-envelope.md) to [III.13](13-archive-and-replay.md) from a single starting point. Every service that publishes or consumes SHOULD use `Company.Platform.Messaging` and the `company-consumer` template (`dotnet new company-consumer`), and SHOULD host consumers on AWS Lambda with an SQS event source ([Prop. VIII.3](../../08-infrastructure-aws/propositions/03-compute-choice.md)) or, where the service already runs on ECS, as a hosted `BackgroundService` using the same pipeline. MassTransit MAY be used as the transport abstraction provided the platform pipeline behaviours are installed.
 
 ## Given
 
-Post. I.2, Post. I.6, Post. I.7, CN 5, Prop. III.1 to III.13, Prop. VIII.3.
+[Post. I.2](../../01-foundations/postulates.md#Post.%20I.2%20-%20Language), [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification), [Post. I.7](../../01-foundations/postulates.md#Post.%20I.7%20-%20Contract%20First), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape), [Prop. III.1](01-envelope.md) to [III.13](13-archive-and-replay.md), [Prop. VIII.3](../../08-infrastructure-aws/propositions/03-compute-choice.md).
 
 ## Demonstration (construction)
 
@@ -75,7 +75,7 @@ The pipeline (validate envelope → validate schema → inbox claim → ordering
 
 ## Conformance
 
-Template repository CI runs every Book III conformance check; services run them against themselves; template version is recorded in `conformance.json`.
+Template repository CI runs every [Book III](../README.md) conformance check; services run them against themselves; template version is recorded in `conformance.json`.
 
 ## Scholium
 

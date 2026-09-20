@@ -13,17 +13,17 @@ Every monetary value in a contract MUST conform to [`money.json`](../schemas/sha
 
 ## Given
 
-Def. IV.5, Post. II.3, Post. II.5, CN 3, CN 5, Prop. II.11.
+[Def. IV.5](../definitions.md#Def.%20IV.5%20-%20Shape), [Post. II.3](../../02-api-guidelines/postulates.md#Post.%20II.3%20-%20JSON%20Is%20the%20Representation), [Post. II.5](../../02-api-guidelines/postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape), [Prop. II.11](../../02-api-guidelines/propositions/11-json-conventions.md).
 
 ## Demonstration
 
-Money has one shape everywhere (CN 5). JSON numbers are IEEE doubles in every JavaScript consumer (Post. II.5) and `0.1 + 0.2 ≠ 0.3` there; a string survives the round trip exactly and maps to `decimal` in .NET and to arbitrary-precision libraries in TypeScript. An amount without a currency is not a quantity of money, so the two travel together. Scale is a property of the currency, so it is validated against the code rather than fixed at two. Rounding and conversion change values; by CN 3 they must be declared, not assumed. ∎ Q.E.D.
+Money has one shape everywhere ([CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape)). JSON numbers are IEEE doubles in every JavaScript consumer ([Post. II.5](../../02-api-guidelines/postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)) and `0.1 + 0.2 ≠ 0.3` there; a string survives the round trip exactly and maps to `decimal` in .NET and to arbitrary-precision libraries in TypeScript. An amount without a currency is not a quantity of money, so the two travel together. Scale is a property of the currency, so it is validated against the code rather than fixed at two. Rounding and conversion change values; by [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit) they must be declared, not assumed. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. IV.3.1** - Percentages, rates and quantities are not `Money`; they are decimal strings with their own declared scale and unit.
-* **Cor. IV.3.2** - A `Money` with `amount: "0"` and a `Money` that is absent mean different things (Prop. II.11 rule 6); "free" is `"0.00"`.
-* **Cor. IV.3.3** - Sorting or filtering by `amount` (Prop. II.6) is defined only within one `currency`.
+* **Cor. IV.3.2** - A `Money` with `amount: "0"` and a `Money` that is absent mean different things ([Prop. II.11](../../02-api-guidelines/propositions/11-json-conventions.md) rule 6); "free" is `"0.00"`.
+* **Cor. IV.3.3** - Sorting or filtering by `amount` ([Prop. II.6](../../02-api-guidelines/propositions/06-filtering-and-sorting.md)) is defined only within one `currency`.
 
 ## Construction
 
@@ -38,7 +38,7 @@ public readonly record struct Money(decimal Amount, Currency Currency)
 // JSON: { "amount": "120.00", "currency": "GBP" } via MoneyJsonConverter (writes Amount.ToString("F{minor}", Invariant))
 ```
 
-`Currency` is a value object backed by the ISO 4217 reference dataset (Prop. VII.4). TypeScript: `interface Money { amount: string; currency: string }` with helpers built on `big.js`; formatting via `Intl.NumberFormat` (Prop. XI.10).
+`Currency` is a value object backed by the ISO 4217 reference dataset ([Prop. VII.4](../../07-data-ownership/propositions/04-reference-data-distribution.md)). TypeScript: `interface Money { amount: string; currency: string }` with helpers built on `big.js`; formatting via `Intl.NumberFormat` ([Prop. XI.10](../../11-frontend-integration/propositions/10-client-side-formatting.md)).
 
 ## Conformance
 

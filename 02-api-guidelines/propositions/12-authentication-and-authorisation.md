@@ -9,20 +9,20 @@
 
 ## Statement
 
-Every operation except the health endpoints (Prop. II.16) MUST require an OAuth 2.0 bearer access token issued by the company identity provider (Post. V.1), validated at the edge (Def. II.12) for signature, issuer, audience, expiry and required scopes, and validated again in the service. The contract MUST declare a `securitySchemes` entry of type `oauth2`/`openIdConnect` and the scopes each operation requires. Fine-grained decisions (ownership, tenant, state-dependent permission) MUST be made in the service (Prop. V.2). Failures are `401` for missing/invalid tokens and `403` for insufficient permission (Prop. II.3), except that cross-tenant access is `404` (Cor. II.3.1).
+Every operation except the health endpoints ([Prop. II.16](16-health-endpoints.md)) MUST require an OAuth 2.0 bearer access token issued by the company identity provider ([Post. V.1](../../05-security/postulates.md#Post.%20V.1%20-%20One%20Identity%20Provider)), validated at the edge ([Def. II.12](../definitions.md#Def.%20II.12%20-%20Edge)) for signature, issuer, audience, expiry and required scopes, and validated again in the service. The contract MUST declare a `securitySchemes` entry of type `oauth2`/`openIdConnect` and the scopes each operation requires. Fine-grained decisions (ownership, tenant, state-dependent permission) MUST be made in the service ([Prop. V.2](../../05-security/propositions/02-coarse-scopes-fine-authorisation.md)). Failures are `401` for missing/invalid tokens and `403` for insufficient permission ([Prop. II.3](03-methods-and-status-codes.md)), except that cross-tenant access is `404` ([Cor. II.3.1](03-methods-and-status-codes.md#Corollaries)).
 
 ## Given
 
-Def. II.12, Def. II.13, Post. II.4, Post. II.5, CN 3, Prop. V.1, V.2, V.7.
+[Def. II.12](../definitions.md#Def.%20II.12%20-%20Edge), [Def. II.13](../definitions.md#Def.%20II.13%20-%20Client), [Post. II.4](../postulates.md#Post.%20II.4%20-%20One%20Ingress), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [Prop. V.1](../../05-security/propositions/01-every-api-behind-the-edge.md), [V.2](../../05-security/propositions/02-coarse-scopes-fine-authorisation.md), [V.7](../../05-security/propositions/07-tenant-isolation-at-data-access.md).
 
 ## Demonstration
 
-There is one ingress (Post. II.4), so validating there means no API can be reached unauthenticated by omission. The edge, however, knows only the token and the route; it cannot know whether *this* principal may act on *this* resource in *this* state, which is why fine-grained decisions belong in the service (Prop. V.2). Validating twice costs microseconds and removes the edge from the trust boundary of the service, which matters when services call each other inside the VPC. Declaring scopes in the contract is CN 3: a consumer cannot request what it cannot see. ∎ Q.E.D.
+There is one ingress ([Post. II.4](../postulates.md#Post.%20II.4%20-%20One%20Ingress)), so validating there means no API can be reached unauthenticated by omission. The edge, however, knows only the token and the route; it cannot know whether *this* principal may act on *this* resource in *this* state, which is why fine-grained decisions belong in the service ([Prop. V.2](../../05-security/propositions/02-coarse-scopes-fine-authorisation.md)). Validating twice costs microseconds and removes the edge from the trust boundary of the service, which matters when services call each other inside the VPC. Declaring scopes in the contract is [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit): a consumer cannot request what it cannot see. ∎ Q.E.D.
 
 ## Corollaries
 
-* **Cor. II.12.1** - Service-to-service calls carry a client-credentials token (Prop. V.3); there are no "internal, unauthenticated" endpoints.
-* **Cor. II.12.2** - The principal's tenant is read from the token; a request body or query field naming a tenant is an *input* to an admin API, never the source of authority (Prop. V.7).
+* **Cor. II.12.1** - Service-to-service calls carry a client-credentials token ([Prop. V.3](../../05-security/propositions/03-service-to-service-authentication.md)); there are no "internal, unauthenticated" endpoints.
+* **Cor. II.12.2** - The principal's tenant is read from the token; a request body or query field naming a tenant is an *input* to an admin API, never the source of authority ([Prop. V.7](../../05-security/propositions/07-tenant-isolation-at-data-access.md)).
 
 ## Construction
 

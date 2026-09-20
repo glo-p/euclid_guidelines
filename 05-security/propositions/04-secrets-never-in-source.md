@@ -10,15 +10,15 @@
 
 ## Statement
 
-A secret (Def. V.8) MUST NOT appear in source code, in any configuration file, in a container image, or in an environment variable definition checked into source control. A service MUST read each secret at start-up or on demand from AWS Secrets Manager or SSM Parameter Store (Post. V.3) using its IAM role (Post. V.4).
+A secret ([Def. V.8](../definitions.md#Def.%20V.8%20-%20Secret)) MUST NOT appear in source code, in any configuration file, in a container image, or in an environment variable definition checked into source control. A service MUST read each secret at start-up or on demand from AWS Secrets Manager or SSM Parameter Store ([Post. V.3](../postulates.md#Post.%20V.3%20-%20Managed%20Secret%20Stores)) using its IAM role ([Post. V.4](../postulates.md#Post.%20V.4%20-%20Least%20Privilege)).
 
 ## Given
 
-Def. V.8, Post. V.3, Post. V.4, Post. I.6, Def. I.21.
+[Def. V.8](../definitions.md#Def.%20V.8%20-%20Secret), [Post. V.3](../postulates.md#Post.%20V.3%20-%20Managed%20Secret%20Stores), [Post. V.4](../postulates.md#Post.%20V.4%20-%20Least%20Privilege), [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification), [Def. I.21](../../01-foundations/definitions.md#Def.%20I.21%20-%20Environment).
 
 ## Demonstration
 
-By Post. V.3 the managed stores are the only place secrets exist; a secret elsewhere is a second copy that is neither rotated nor access-controlled. Source control is readable by every engineer and every CI job, so a committed secret is disclosed to every one of them, which by Def. V.8 is the harm the word names. Contracts are identical across environments and only configuration differs (Def. I.21), so the reference to a secret (its name) may be committed while its value is resolved per environment at runtime. Post. I.6 says the rule is only real if a scanner enforces it. ∎ Q.E.D.
+By [Post. V.3](../postulates.md#Post.%20V.3%20-%20Managed%20Secret%20Stores) the managed stores are the only place secrets exist; a secret elsewhere is a second copy that is neither rotated nor access-controlled. Source control is readable by every engineer and every CI job, so a committed secret is disclosed to every one of them, which by [Def. V.8](../definitions.md#Def.%20V.8%20-%20Secret) is the harm the word names. Contracts are identical across environments and only configuration differs ([Def. I.21](../../01-foundations/definitions.md#Def.%20I.21%20-%20Environment)), so the reference to a secret (its name) may be committed while its value is resolved per environment at runtime. [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification) says the rule is only real if a scanner enforces it. ∎ Q.E.D.
 
 ## Corollaries
 

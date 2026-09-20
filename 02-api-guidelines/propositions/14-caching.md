@@ -9,20 +9,20 @@
 
 ## Statement
 
-Every `GET` response MUST carry an explicit `Cache-Control` header. Item `GET`s SHOULD return `ETag` (Prop. II.9) and honour `If-None-Match` with `304`. Responses containing tenant or principal data MUST be `Cache-Control: private` (or `no-store` where the data is classified Restricted, Book V). Only representations that are identical for every principal MAY be `public`.
+Every `GET` response MUST carry an explicit `Cache-Control` header. Item `GET`s SHOULD return `ETag` ([Prop. II.9](09-optimistic-concurrency.md)) and honour `If-None-Match` with `304`. Responses containing tenant or principal data MUST be `Cache-Control: private` (or `no-store` where the data is classified Restricted, [Book V](../../05-security/README.md)). Only representations that are identical for every principal MAY be `public`.
 
 ## Given
 
-Def. II.11, Post. II.1, Post. II.5, CN 3, Prop. II.9, Prop. V.5.
+[Def. II.11](../definitions.md#Def.%20II.11%20-%20Entity%20Tag), [Post. II.1](../postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [Prop. II.9](09-optimistic-concurrency.md), [Prop. V.5](../../05-security/propositions/05-data-classification-in-contracts.md).
 
 ## Demonstration
 
-HTTP caching (Post. II.1) is performed by browsers, CDNs and proxies we do not control (Post. II.5); their default behaviour in the absence of a header is heuristic and therefore unsafe for tenant data. An explicit header makes the cacheability part of the contract (CN 3). Conditional GET reuses the validator already required for concurrency (Prop. II.9), so it is free to add and it removes bandwidth for polling clients. ∎ Q.E.D.
+HTTP caching ([Post. II.1](../postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative)) is performed by browsers, CDNs and proxies we do not control ([Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)); their default behaviour in the absence of a header is heuristic and therefore unsafe for tenant data. An explicit header makes the cacheability part of the contract ([CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit)). Conditional GET reuses the validator already required for concurrency ([Prop. II.9](09-optimistic-concurrency.md)), so it is free to add and it removes bandwidth for polling clients. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. II.14.1** - `POST` results and Problems are never cacheable; the template sets `no-store` on them.
-* **Cor. II.14.2** - Reference data (Prop. VII.4) is the primary candidate for `public, max-age`, served with a long lifetime and versioned URLs.
+* **Cor. II.14.2** - Reference data ([Prop. VII.4](../../07-data-ownership/propositions/04-reference-data-distribution.md)) is the primary candidate for `public, max-age`, served with a long lifetime and versioned URLs.
 
 ## Construction
 

@@ -6,8 +6,8 @@ Book III governs everything a service says to other services without waiting for
 
 | File | Contents |
 |---|---|
-| [`definitions.md`](definitions.md) | `Def. III.1` - `Def. III.22`: integration event, domain event, envelope, bus, rule, queue, DLQ, outbox, inbox, at-least-once, ordering key, … |
-| [`postulates.md`](postulates.md) | `Post. III.1` - `Post. III.7`: EventBridge is the bus, SQS the buffer, delivery is at-least-once, order is not guaranteed, payloads are bounded, … |
+| [`definitions.md`](definitions.md) | [`Def. III.1`](definitions.md#Def.%20III.1%20-%20Domain%20Event) - [`Def. III.22`](definitions.md#Def.%20III.22%20-%20Command%20Queue): integration event, domain event, envelope, bus, rule, queue, DLQ, outbox, inbox, at-least-once, ordering key, … |
+| [`postulates.md`](postulates.md) | [`Post. III.1`](postulates.md#Post.%20III.1%20-%20The%20Bus) - [`Post. III.7`](postulates.md#Post.%20III.7%20-%20Schema%20Validation%20Is%20the%20Check): EventBridge is the bus, SQS the buffer, delivery is at-least-once, order is not guaranteed, payloads are bounded, … |
 
 ### Propositions
 
@@ -30,7 +30,7 @@ Book III governs everything a service says to other services without waiting for
 
 ## Reading order
 
-III.1 to III.4 define what an event *is* for us. III.5 to III.8 are the four rules that make asynchronous communication correct under Post. I.4 (unreliable network); a team that skips any one of them will lose or duplicate business facts. III.9 is the wiring. III.10 to III.13 are design and operations. III.14 is the template.
+III.1 to III.4 define what an event *is* for us. III.5 to III.8 are the four rules that make asynchronous communication correct under [Post. I.4](../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network) (unreliable network); a team that skips any one of them will lose or duplicate business facts. III.9 is the wiring. III.10 to III.13 are design and operations. III.14 is the template.
 
 ## Open questions
 

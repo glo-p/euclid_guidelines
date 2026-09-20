@@ -9,21 +9,21 @@
 
 ## Statement
 
-Every response with status `4xx` or `5xx` MUST have media type `application/problem+json` and a body conforming to the shared schema `ProblemDetails` (Prop. IV.5). The `type` member MUST be an absolute URI under `https://problems.company.com/` that is stable across versions and listed in the API's contract. The `traceId` extension MUST be present. Validation errors MUST list each failing field in the `errors` extension. The body MUST NOT contain stack traces, internal identifiers, SQL, or the names of internal systems.
+Every response with status `4xx` or `5xx` MUST have media type `application/problem+json` and a body conforming to the shared schema `ProblemDetails` ([Prop. IV.5](../../04-shared-schemas/propositions/05-problem-details.md)). The `type` member MUST be an absolute URI under `https://problems.company.com/` that is stable across versions and listed in the API's contract. The `traceId` extension MUST be present. Validation errors MUST list each failing field in the `errors` extension. The body MUST NOT contain stack traces, internal identifiers, SQL, or the names of internal systems.
 
 ## Given
 
-Def. II.8, Post. II.1, Post. II.5, CN 3, CN 5, CN 7, Prop. IV.5, Prop. II.3.
+[Def. II.8](../definitions.md#Def.%20II.8%20-%20Problem), [Post. II.1](../postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape), [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated), [Prop. IV.5](../../04-shared-schemas/propositions/05-problem-details.md), [Prop. II.3](03-methods-and-status-codes.md).
 
 ## Demonstration
 
-Consumers we do not deploy (Post. II.5) must handle errors we have not yet thought of; they can only do so if every error has one shape (CN 5) and a machine-readable discriminator that does not depend on prose (Def. II.8). RFC 9457 already provides that shape and its `type` URI is the discriminator; re-inventing it would violate CN 5. The `type` must be listed in the contract, otherwise by CN 3 the consumer cannot rely on it. Under CN 7 an error the operator cannot correlate with a trace is invisible, hence `traceId`. Internal detail in an error body is disclosure to a party we do not control (Post. II.5) and therefore excluded. ∎ Q.E.D.
+Consumers we do not deploy ([Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)) must handle errors we have not yet thought of; they can only do so if every error has one shape ([CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape)) and a machine-readable discriminator that does not depend on prose ([Def. II.8](../definitions.md#Def.%20II.8%20-%20Problem)). RFC 9457 already provides that shape and its `type` URI is the discriminator; re-inventing it would violate [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape). The `type` must be listed in the contract, otherwise by [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit) the consumer cannot rely on it. Under [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated) an error the operator cannot correlate with a trace is invisible, hence `traceId`. Internal detail in an error body is disclosure to a party we do not control ([Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)) and therefore excluded. ∎ Q.E.D.
 
 ## Corollaries
 
-* **Cor. II.4.1** - The set of `type` URIs an operation may return is part of its contract; adding one is a compatible change, removing one is breaking (Def. I.14).
-* **Cor. II.4.2** - Each `type` URI resolves to a human-readable page in the problem registry describing the condition, the status code, and the remedy. The registry lives in the catalogue repository (Book IV).
-* **Cor. II.4.3** - `title` is constant per `type`; `detail` may vary per occurrence and is safe to display to an end user; neither is localised by the API (localisation is a front-end concern, Book XI).
+* **Cor. II.4.1** - The set of `type` URIs an operation may return is part of its contract; adding one is a compatible change, removing one is breaking ([Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change)).
+* **Cor. II.4.2** - Each `type` URI resolves to a human-readable page in the problem registry describing the condition, the status code, and the remedy. The registry lives in the catalogue repository ([Book IV](../../04-shared-schemas/README.md)).
+* **Cor. II.4.3** - `title` is constant per `type`; `detail` may vary per occurrence and is safe to display to an end user; neither is localised by the API (localisation is a front-end concern, [Book XI](../../11-frontend-integration/README.md)).
 
 ## Construction
 
@@ -57,7 +57,7 @@ app.UseExceptionHandler();   // maps unhandled -> 500 problem, no stack trace ou
 app.UseStatusCodePages();    // maps bare 404/405 -> problem
 ```
 
-Domain errors: one `DomainException(ProblemType type, string detail)` hierarchy mapped by a single `IExceptionHandler` to `Results.Problem(...)`. `ProblemTypes` is a static class in `Company.Contracts.Shared` (Prop. IV.1) so URIs are shared, not retyped.
+Domain errors: one `DomainException(ProblemType type, string detail)` hierarchy mapped by a single `IExceptionHandler` to `Results.Problem(...)`. `ProblemTypes` is a static class in `Company.Contracts.Shared` ([Prop. IV.1](../../04-shared-schemas/propositions/01-catalogue-and-distribution.md)) so URIs are shared, not retyped.
 
 ## Conformance
 

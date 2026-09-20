@@ -14,7 +14,7 @@
 
 ## Given
 
-{Bulleted list of the definitions, postulates, common notions and earlier propositions this rests on, e.g. `Def. I.2`, `Post. I.4`, `CN 2`, `Prop. II.1`.}
+{Bulleted list of the definitions, postulates, common notions and earlier propositions this rests on, e.g. `Def. I.2`, `Post. I.4`, `CN 2`, `Prop. II.1`. Every citation here and in the text below is a relative link to the item's heading, so that Obsidian and the graph can follow it: `[Def. I.2](../../01-foundations/definitions.md#Def.%20I.2%20-%20Contract)`, `[Post. I.4](../../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network)`, `[CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed)`, `[Prop. II.1](../../02-api-guidelines/propositions/01-contract-first.md)`. Definitions, postulates and common notions are `##` headings in their book's file; propositions are files.}
 
 ## Demonstration
 

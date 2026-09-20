@@ -6,8 +6,8 @@ Book IV is the catalogue: the small set of concepts that every API and every eve
 
 | File | Contents |
 |---|---|
-| [`definitions.md`](definitions.md) | `Def. IV.1` - `Def. IV.8`: catalogue, schema id, package, generated type, open enumeration, … |
-| [`postulates.md`](postulates.md) | `Post. IV.1` - `Post. IV.5`: JSON Schema 2020-12, `$id` URIs, generation targets, … |
+| [`definitions.md`](definitions.md) | [`Def. IV.1`](definitions.md#Def.%20IV.1%20-%20Catalogue%20Repository) - [`Def. IV.8`](definitions.md#Def.%20IV.8%20-%20Extension%20Keyword): catalogue, schema id, package, generated type, open enumeration, … |
+| [`postulates.md`](postulates.md) | [`Post. IV.1`](postulates.md#Post.%20IV.1%20-%20JSON%20Schema%202020-12) - [`Post. IV.5`](postulates.md#Post.%20IV.5%20-%20Small%20Catalogue): JSON Schema 2020-12, `$id` URIs, generation targets, … |
 | [`schemas/`](schemas/README.md) | The JSON Schema documents, `shared/v1/*.json`. |
 
 ### Propositions
@@ -31,11 +31,11 @@ Book IV is the catalogue: the small set of concepts that every API and every eve
 
 1. Reference a schema by absolute `$id` from an OpenAPI document or an event schema (`$ref: "https://schemas.company.com/shared/v1/money.json"`).
 2. Add the package: `Company.Contracts.Shared` (NuGet) or `@company/contracts` (npm).
-3. Use the generated type (`Money`, `Page<T>`, `ProblemDetails`, `Ulid`, …). Never declare a local type for a catalogue concept (CN 5).
-4. To propose a new shared concept or a change: pull request to the catalogue repository with the schema, examples, and an ADR when the change is a new major (Book IX, Book X).
+3. Use the generated type (`Money`, `Page<T>`, `ProblemDetails`, `Ulid`, …). Never declare a local type for a catalogue concept ([CN 5](../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape)).
+4. To propose a new shared concept or a change: pull request to the catalogue repository with the schema, examples, and an ADR when the change is a new major ([Book IX](../09-versioning-and-deprecation/README.md), [Book X](../10-governance/README.md)).
 
 ## Open questions
 
 * Whether `Money.amount` should be a decimal string (current) or an integer in minor units. See the scholium of IV.3 for the argument; the decision is recorded in ADR-0001 only implicitly and deserves its own ADR.
-* Whether to add `Address`, `PersonName` and `ContactPoint` as shared schemas in v1 or wait for two concrete consumers (Cor. III.10.1 applied to schemas). Current text: wait.
+* Whether to add `Address`, `PersonName` and `ContactPoint` as shared schemas in v1 or wait for two concrete consumers ([Cor. III.10.1](../03-events/propositions/10-payload-design.md#Corollaries) applied to schemas). Current text: wait.
 * Whether TypeScript generation targets `zod` schemas as well as plain types.

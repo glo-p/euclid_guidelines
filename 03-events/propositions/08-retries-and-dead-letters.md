@@ -9,15 +9,15 @@
 
 ## Statement
 
-Every queue (Def. III.10) MUST have a dead-letter queue (Def. III.11) with `maxReceiveCount` between 3 and 10, a visibility timeout at least six times the handler's p99 duration, and a DLQ retention of 14 days. Every EventBridge rule target MUST have a retry policy and a DLQ for delivery failures. A consumer MUST distinguish *transient* failures (throw, let SQS retry) from *permanent* failures (schema invalid, business rule cannot ever apply) and MUST move permanent failures to the DLQ immediately with a reason. A non-empty DLQ MUST alert the owning team (Prop. VI.6) and MUST have a documented redrive procedure.
+Every queue ([Def. III.10](../definitions.md#Def.%20III.10%20-%20Queue)) MUST have a dead-letter queue ([Def. III.11](../definitions.md#Def.%20III.11%20-%20Dead-Letter%20Queue)) with `maxReceiveCount` between 3 and 10, a visibility timeout at least six times the handler's p99 duration, and a DLQ retention of 14 days. Every EventBridge rule target MUST have a retry policy and a DLQ for delivery failures. A consumer MUST distinguish *transient* failures (throw, let SQS retry) from *permanent* failures (schema invalid, business rule cannot ever apply) and MUST move permanent failures to the DLQ immediately with a reason. A non-empty DLQ MUST alert the owning team ([Prop. VI.6](../../06-observability/propositions/06-alerts-on-symptoms-with-runbooks.md)) and MUST have a documented redrive procedure.
 
 ## Given
 
-Def. III.10, Def. III.11, Post. I.4, Post. III.3, CN 2, CN 7, Prop. III.6, VI.6.
+[Def. III.10](../definitions.md#Def.%20III.10%20-%20Queue), [Def. III.11](../definitions.md#Def.%20III.11%20-%20Dead-Letter%20Queue), [Post. I.4](../../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network), [Post. III.3](../postulates.md#Post.%20III.3%20-%20At-Least-Once), [CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed), [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated), [Prop. III.6](06-idempotent-consumers.md), [VI.6](../../06-observability/propositions/06-alerts-on-symptoms-with-runbooks.md).
 
 ## Demonstration
 
-Under Post. I.4 a consumer will sometimes fail for reasons that clear on their own; a retry is the correct response and SQS provides it through visibility timeout and receive count. A permanent failure retried forever blocks the queue for every other message and, by CN 7, hides the actual defect; therefore permanent failures leave the queue at once. A message in a DLQ is a published fact that has not been honoured (CN 2): it must be visible (alert) and recoverable (redrive), and retained long enough for a human to act. Retrying after a DLQ is safe only because consumers are idempotent (Prop. III.6). ∎ Q.E.D.
+Under [Post. I.4](../../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network) a consumer will sometimes fail for reasons that clear on their own; a retry is the correct response and SQS provides it through visibility timeout and receive count. A permanent failure retried forever blocks the queue for every other message and, by [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated), hides the actual defect; therefore permanent failures leave the queue at once. A message in a DLQ is a published fact that has not been honoured ([CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed)): it must be visible (alert) and recoverable (redrive), and retained long enough for a human to act. Retrying after a DLQ is safe only because consumers are idempotent ([Prop. III.6](06-idempotent-consumers.md)). ∎ Q.E.D.
 
 ## Corollaries
 
@@ -27,7 +27,7 @@ Under Post. I.4 a consumer will sometimes fail for reasons that clear on their o
 
 ## Construction
 
-Terraform module `company/sqs-consumer` (Prop. VIII.9) creates queue + DLQ + alarm
+Terraform module `company/sqs-consumer` ([Prop. VIII.9](../../08-infrastructure-aws/propositions/09-shared-terraform-modules.md)) creates queue + DLQ + alarm
 + redrive allow policy + the EventBridge rule and target with `retry_policy { maximum_retry_attempts = 185, maximum_event_age_in_seconds = 86400 }` and `dead_letter_config`. `Company.Platform.Messaging` maps `PermanentFailureException` to an immediate move to the DLQ (send to DLQ with `reason` attribute, delete from source) and any other exception to a visibility change with backoff.
 
 ## Conformance

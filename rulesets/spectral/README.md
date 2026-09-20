@@ -1,12 +1,12 @@
 # Company Spectral ruleset
 
-The machine check for Book II (Post. II.6). Published as `@company/spectral-ruleset`; services extend it from `.spectral.yaml`:
+The machine check for [Book II](../../02-api-guidelines/README.md) ([Post. II.6](../../02-api-guidelines/postulates.md#Post.%20II.6%20-%20The%20Linter%20Is%20the%20Check)). Published as `@company/spectral-ruleset`; services extend it from `.spectral.yaml`:
 
 ```yaml
 extends: ["@company/spectral-ruleset"]
 ```
 
-`ruleset.yaml` in this folder is the starting point. Each rule is named in the *Conformance* section of the proposition it enforces; a rule with no proposition is removed, and a MUST proposition with no rule is `Draft` (Prop. I.3).
+`ruleset.yaml` in this folder is the starting point. Each rule is named in the *Conformance* section of the proposition it enforces; a rule with no proposition is removed, and a MUST proposition with no rule is `Draft` ([Prop. I.3](../../01-foundations/method.md#Prop.%20I.3%20-%20Every%20MUST%20has%20a%20machine%20check)).
 
 | Rule | Proposition |
 |---|---|

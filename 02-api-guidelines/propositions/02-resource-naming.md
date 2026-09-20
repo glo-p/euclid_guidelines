@@ -13,11 +13,11 @@ Paths MUST be composed of the base path `/v{n}`, followed by segments that alter
 
 ## Given
 
-Def. I.7, Def. II.3, Def. II.4, Def. II.18, Post. II.1, CN 1, CN 5.
+[Def. I.7](../../01-foundations/definitions.md#Def.%20I.7%20-%20Resource), [Def. II.3](../definitions.md#Def.%20II.3%20-%20Collection), [Def. II.4](../definitions.md#Def.%20II.4%20-%20Item), [Def. II.18](../definitions.md#Def.%20II.18%20-%20Sub-resource), [Post. II.1](../postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative), [CN 1](../../01-foundations/common-notions.md#CN%201%20-%20Substitutability), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape).
 
 ## Demonstration
 
-A resource is a thing with a stable identifier (Def. I.7); HTTP methods already supply the verbs (Post. II.1), so a verb in the path either duplicates the method or contradicts it. Collections and items alternate by definition (Def. II.3, II.4), which fixes the segment pattern. One casing and one number (plural) make every path predictable to a consumer who has seen any other path, which is the practical form of CN 5 applied to naming. Actions that are not state changes still produce a record of having been requested; that record is a resource (Def. II.18), so it is named as a noun and created, which keeps the vocabulary closed. ∎ Q.E.D.
+A resource is a thing with a stable identifier ([Def. I.7](../../01-foundations/definitions.md#Def.%20I.7%20-%20Resource)); HTTP methods already supply the verbs ([Post. II.1](../postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative)), so a verb in the path either duplicates the method or contradicts it. Collections and items alternate by definition ([Def. II.3](../definitions.md#Def.%20II.3%20-%20Collection), [II.4](../definitions.md#Def.%20II.4%20-%20Item)), which fixes the segment pattern. One casing and one number (plural) make every path predictable to a consumer who has seen any other path, which is the practical form of [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape) applied to naming. Actions that are not state changes still produce a record of having been requested; that record is a resource ([Def. II.18](../definitions.md#Def.%20II.18%20-%20Sub-resource)), so it is named as a noun and created, which keeps the vocabulary closed. ∎ Q.E.D.
 
 ## Corollaries
 
@@ -55,4 +55,4 @@ Examples:
 | Order lines | `GET /v1/orders/{orderId}/lines` |
 | Search across tenants (admin) | `GET /v1/orders?tenantId=…` |
 
-Rejected alternative: `POST /v1/orders/{id}/cancel`. It reads well but introduces an open-ended vocabulary of verbs that every consumer has to learn per API. The sub-resource form also gives the cancellation an identifier, a timestamp and a body, which the audit requirements of Book V need anyway.
+Rejected alternative: `POST /v1/orders/{id}/cancel`. It reads well but introduces an open-ended vocabulary of verbs that every consumer has to learn per API. The sub-resource form also gives the cancellation an identifier, a timestamp and a body, which the audit requirements of [Book V](../../05-security/README.md) need anyway.

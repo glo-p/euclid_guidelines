@@ -14,18 +14,18 @@ Every taggable AWS resource MUST carry the tags `service`, `team`, `environment`
 
 ## Given
 
-* Def. I.1, Def. I.17, Def. VIII.4, Def. VIII.13
-* Post. I.6, Post. VIII.1
-* Prop. V.5, Prop. VIII.10
-* CN 7, CN 8
+* [Def. I.1](../../01-foundations/definitions.md#Def.%20I.1%20-%20Service), [Def. I.17](../../01-foundations/definitions.md#Def.%20I.17%20-%20Team), [Def. VIII.4](../definitions.md#Def.%20VIII.4%20-%20Environment%20%28refines%20Def.%20I.21%29), [Def. VIII.13](../definitions.md#Def.%20VIII.13%20-%20Tag)
+* [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification), [Post. VIII.1](../postulates.md#Post.%20VIII.1%20-%20Organisation%20and%20Landing%20Zone)
+* [Prop. V.5](../../05-security/propositions/05-data-classification-in-contracts.md), [Prop. VIII.10](10-cost-allocation.md)
+* [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated), [CN 8](../../01-foundations/common-notions.md#CN%208%20-%20The%20Whole%20Is%20Not%20Greater%20Than%20Its%20Contracts)
 
 ## Demonstration
 
-A resource is owned by exactly one service and team (Def. I.1, Def. I.17) and exists in exactly one environment (Def. VIII.4); tags (Def. VIII.13) are the only universal place to record those facts on the resource itself, and by CN 8 a fact not recorded is not architecture. Cost allocation (Prop. VIII.10) and classification (Prop. V.5) need the same carrier. By CN 7 an untagged resource cannot be attributed and therefore cannot be operated. Post. I.6 requires enforcement by machine; the organisation (Post. VIII.1) provides tag policies, and the pipeline provides a check before apply. ∎ Q.E.D.
+A resource is owned by exactly one service and team ([Def. I.1](../../01-foundations/definitions.md#Def.%20I.1%20-%20Service), [Def. I.17](../../01-foundations/definitions.md#Def.%20I.17%20-%20Team)) and exists in exactly one environment ([Def. VIII.4](../definitions.md#Def.%20VIII.4%20-%20Environment%20%28refines%20Def.%20I.21%29)); tags ([Def. VIII.13](../definitions.md#Def.%20VIII.13%20-%20Tag)) are the only universal place to record those facts on the resource itself, and by [CN 8](../../01-foundations/common-notions.md#CN%208%20-%20The%20Whole%20Is%20Not%20Greater%20Than%20Its%20Contracts) a fact not recorded is not architecture. Cost allocation ([Prop. VIII.10](10-cost-allocation.md)) and classification ([Prop. V.5](../../05-security/propositions/05-data-classification-in-contracts.md)) need the same carrier. By [CN 7](../../01-foundations/common-notions.md#CN%207%20-%20What%20Cannot%20Be%20Observed%20Cannot%20Be%20Operated) an untagged resource cannot be attributed and therefore cannot be operated. [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification) requires enforcement by machine; the organisation ([Post. VIII.1](../postulates.md#Post.%20VIII.1%20-%20Organisation%20and%20Landing%20Zone)) provides tag policies, and the pipeline provides a check before apply. ∎ Q.E.D.
 
 ## Corollaries
 
-* **Cor. VIII.6.1** - `data-classification` on a store is the highest classification of any field it holds (Prop. V.5).
+* **Cor. VIII.6.1** - `data-classification` on a store is the highest classification of any field it holds ([Prop. V.5](../../05-security/propositions/05-data-classification-in-contracts.md)).
 * **Cor. VIII.6.2** - Tags are set once by the Terraform provider `default_tags` block and are never hand-edited.
 
 ## Construction

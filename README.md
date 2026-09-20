@@ -38,14 +38,14 @@ Propositions ending in **Q.E.D.** ("which was to be demonstrated") establish a r
 | X | [`10-governance/`](10-governance/README.md) | Scaffold | How these guidelines change; ADRs; exceptions; conformance. |
 | XI | [`11-frontend-integration/`](11-frontend-integration/README.md) | Scaffold | How front-ends of any technology consume the APIs and schemas above. |
 
-Templates for new definitions, propositions and ADRs are in [`templates/`](templates/). The normative JSON Schemas are in [`04-shared-schemas/schemas/`](04-shared-schemas/schemas/README.md) and the Spectral ruleset that checks Book II is in [`rulesets/spectral/`](rulesets/spectral/README.md).
+Templates for new definitions, propositions and ADRs are in [`templates/`](templates/). The normative JSON Schemas are in [`04-shared-schemas/schemas/`](04-shared-schemas/schemas/README.md) and the Spectral ruleset that checks [Book II](02-api-guidelines/README.md) is in [`rulesets/spectral/`](rulesets/spectral/README.md).
 
 ## Numbering
 
 * Books are Roman numerals; folders carry a two-digit sort prefix.
-* `Def. II.3` = third definition of Book II. `Post. I.2` = second postulate of Book I.
-* Common notions are global and live only in Book I: `CN 1 … CN n`.
-* `Prop. II.4` = fourth proposition of Book II. `Cor. II.4.1` = its first corollary.
+* `Def. II.3` = third definition of [Book II](02-api-guidelines/README.md). `Post. I.2` = second postulate of [Book I](01-foundations/README.md).
+* Common notions are global and live only in [Book I](01-foundations/README.md): `CN 1 … CN n`.
+* `Prop. II.4` = fourth proposition of [Book II](02-api-guidelines/README.md). `Cor. II.4.1` = its first corollary.
 * Identifiers are permanent. A withdrawn item keeps its number and is marked `Deprecated`; numbers are never reused.
 
 ## Status of this repository
@@ -53,7 +53,7 @@ Templates for new definitions, propositions and ADRs are in [`templates/`](templ
 | Field | Value |
 |---|---|
 | Created | 2026-09-20 |
-| Owners | The three principal engineers (see Book X for the change process) |
+| Owners | The three principal engineers (see [Book X](10-governance/README.md) for the change process) |
 | Canonical stack | AWS · .NET (current LTS) · REST/JSON over HTTP · Amazon EventBridge + SQS · JSON Schema 2020-12 · OpenAPI 3.1 |
 
-*Each Book's `README.md` is its table of contents. Start with Book I.*
+*Each Book's `README.md` is its table of contents. Start with [Book I](01-foundations/README.md).*

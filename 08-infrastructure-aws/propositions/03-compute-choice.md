@@ -10,35 +10,35 @@
 
 ## Statement
 
-A workload (Def. VIII.5) SHOULD run on the compute tier (Def. VIII.10) the following table names for its kind. Amazon EKS MUST NOT be used without a recorded exception (Def. I.20).
+A workload ([Def. VIII.5](../definitions.md#Def.%20VIII.5%20-%20Workload)) SHOULD run on the compute tier ([Def. VIII.10](../definitions.md#Def.%20VIII.10%20-%20Compute%20Tier)) the following table names for its kind. Amazon EKS MUST NOT be used without a recorded exception ([Def. I.20](../../01-foundations/definitions.md#Def.%20I.20%20-%20Exception)).
 
 | Workload kind | Default tier | Reason for the default |
 |---|---|---|
-| Synchronous HTTP API (Book II) | ECS on Fargate | Steady concurrency, warm .NET runtime, predictable latency. |
-| Event consumer (Book III) | Lambda, SQS trigger | Bursty, scales to zero, batch semantics match SQS. |
-| Command consumer (Prop. III.11) | Lambda, SQS trigger | As above. |
+| Synchronous HTTP API ([Book II](../../02-api-guidelines/README.md)) | ECS on Fargate | Steady concurrency, warm .NET runtime, predictable latency. |
+| Event consumer ([Book III](../../03-events/README.md)) | Lambda, SQS trigger | Bursty, scales to zero, batch semantics match SQS. |
+| Command consumer ([Prop. III.11](../../03-events/propositions/11-commands.md)) | Lambda, SQS trigger | As above. |
 | Scheduled job | Lambda, EventBridge Scheduler | Short, infrequent, no host to keep. |
 | Long-running job over 15 minutes | ECS Fargate task or Step Functions | Lambda time limit. |
 | Anything requiring Kubernetes semantics | EKS, by exception only | Operational cost of a cluster is paid by the whole company. |
 
 ## Given
 
-* Def. I.20, Def. VIII.10
-* Post. I.1, Post. I.2, Post. VIII.4
-* Prop. II.17, Prop. III.14, Prop. VIII.8
+* [Def. I.20](../../01-foundations/definitions.md#Def.%20I.20%20-%20Exception), [Def. VIII.10](../definitions.md#Def.%20VIII.10%20-%20Compute%20Tier)
+* [Post. I.1](../../01-foundations/postulates.md#Post.%20I.1%20-%20Cloud), [Post. I.2](../../01-foundations/postulates.md#Post.%20I.2%20-%20Language), [Post. VIII.4](../postulates.md#Post.%20VIII.4%20-%20One%20Pipeline%20System)
+* [Prop. II.17](../../02-api-guidelines/propositions/17-dotnet-construction.md), [Prop. III.14](../../03-events/propositions/14-dotnet-construction.md), [Prop. VIII.8](08-pipelines.md)
 
 ## Demonstration
 
-Post. I.1 prefers managed services, which orders the tiers by how much host management they remove: Lambda, then Fargate, then EKS. Post. VIII.4 provides one pipeline template per tier, so every additional tier a team uses is a cost paid by the central pipeline owners. Each workload kind has a load shape; matching it to the tier whose billing and scaling model fits that shape is the entire content of the table, and the .NET constructions of Prop. II.17 and Prop. III.14 already target those tiers on Post. I.2's runtime. EKS removes the least management and its cost is shared, so it is reserved for a recorded exception. ∎ Q.E.D.
+[Post. I.1](../../01-foundations/postulates.md#Post.%20I.1%20-%20Cloud) prefers managed services, which orders the tiers by how much host management they remove: Lambda, then Fargate, then EKS. [Post. VIII.4](../postulates.md#Post.%20VIII.4%20-%20One%20Pipeline%20System) provides one pipeline template per tier, so every additional tier a team uses is a cost paid by the central pipeline owners. Each workload kind has a load shape; matching it to the tier whose billing and scaling model fits that shape is the entire content of the table, and the .NET constructions of [Prop. II.17](../../02-api-guidelines/propositions/17-dotnet-construction.md) and [Prop. III.14](../../03-events/propositions/14-dotnet-construction.md) already target those tiers on [Post. I.2](../../01-foundations/postulates.md#Post.%20I.2%20-%20Language)'s runtime. EKS removes the least management and its cost is shared, so it is reserved for a recorded exception. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. VIII.3.1** - A service MAY run its API on Fargate and its consumers on Lambda; the compute tier is per workload, not per service.
-* **Cor. VIII.3.2** - A deviation from a SHOULD row is recorded in the service repository per Prop. I.2; a use of EKS requires an ADR.
+* **Cor. VIII.3.2** - A deviation from a SHOULD row is recorded in the service repository per [Prop. I.2](../../01-foundations/method.md#Prop.%20I.2%20-%20Levels%20and%20their%20obligations); a use of EKS requires an ADR.
 
 ## Construction
 
-* Fargate: Terraform module `fargate-service` (ECS cluster, service, task definition, ALB target group behind API Gateway VPC link, autoscaling on RED metrics of Prop. VI.3), image in ECR, .NET `Microsoft.NET.Sdk.Web` chiselled or `runtime-deps` base image.
+* Fargate: Terraform module `fargate-service` (ECS cluster, service, task definition, ALB target group behind API Gateway VPC link, autoscaling on RED metrics of [Prop. VI.3](../../06-observability/propositions/03-red-metrics.md)), image in ECR, .NET `Microsoft.NET.Sdk.Web` chiselled or `runtime-deps` base image.
 * Lambda: Terraform module `lambda-sqs-consumer` (function, event source mapping with batch size and partial batch response, DLQ, alarms), .NET `Amazon.Lambda.AspNetCoreServer` not used for consumers; `Amazon.Lambda.SQSEvents` with `Amazon.Lambda.RuntimeSupport` and ReadyToRun or Native AOT where the SDK permits.
 * Scheduled: EventBridge Scheduler targeting Lambda, with a `schedule` module.
 * Long-running: `fargate-task` module invoked by Step Functions `ecs:runTask.sync`.

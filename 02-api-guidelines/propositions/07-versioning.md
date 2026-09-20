@@ -9,21 +9,21 @@
 
 ## Statement
 
-An API's base path MUST begin with `/v{n}` where `n` is its major version (Def. II.9). Compatible changes (Def. I.15) MUST be made in place without changing `n`. A breaking change (Def. I.14) MUST be published as `/v{n+1}` alongside `/v{n}`, and `/v{n}` MUST then follow the deprecation lifecycle of Book IX, emitting `Deprecation` and `Sunset` headers on every response. Minor and patch versions MUST NOT appear in the path, in headers, or in media type parameters.
+An API's base path MUST begin with `/v{n}` where `n` is its major version ([Def. II.9](../definitions.md#Def.%20II.9%20-%20Major%20Version)). Compatible changes ([Def. I.15](../../01-foundations/definitions.md#Def.%20I.15%20-%20Compatible%20Change)) MUST be made in place without changing `n`. A breaking change ([Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change)) MUST be published as `/v{n+1}` alongside `/v{n}`, and `/v{n}` MUST then follow the deprecation lifecycle of [Book IX](../../09-versioning-and-deprecation/README.md), emitting `Deprecation` and `Sunset` headers on every response. Minor and patch versions MUST NOT appear in the path, in headers, or in media type parameters.
 
 ## Given
 
-Def. I.14, Def. I.15, Def. II.9, Post. I.5, Post. II.5, CN 2, CN 4, CN 6, Prop. IX.2, Prop. IX.3.
+[Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change), [Def. I.15](../../01-foundations/definitions.md#Def.%20I.15%20-%20Compatible%20Change), [Def. II.9](../definitions.md#Def.%20II.9%20-%20Major%20Version), [Post. I.5](../../01-foundations/postulates.md#Post.%20I.5%20-%20Independent%20Evolution), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy), [CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed), [CN 4](../../01-foundations/common-notions.md#CN%204%20-%20Compatibility%20Is%20Compositional), [CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance), [Prop. IX.2](../../09-versioning-and-deprecation/propositions/02-breaking-change-is-a-new-major-side-by-side.md), [Prop. IX.3](../../09-versioning-and-deprecation/propositions/03-deprecation-is-declared-in-the-contract.md).
 
 ## Demonstration
 
-Consumers lag producers indefinitely (Post. I.5, Post. II.5), and a published contract is owed (CN 2); therefore a breaking change can only be introduced by leaving the old contract in place and adding a new one, which is what a side-by-side major version is. Compatible changes by definition (Def. I.15, CN 4) cannot break a conforming consumer, so a version marker for them carries no information a consumer can act on and merely multiplies the contracts to maintain. The major version must be visible to caches, proxies, the edge and logs, all of which see the path and not a header, hence the path. Consumers tolerate additions (CN 6), which is what makes in-place compatible change safe. ∎ Q.E.D.
+Consumers lag producers indefinitely ([Post. I.5](../../01-foundations/postulates.md#Post.%20I.5%20-%20Independent%20Evolution), [Post. II.5](../postulates.md#Post.%20II.5%20-%20Consumers%20We%20Do%20Not%20Deploy)), and a published contract is owed ([CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed)); therefore a breaking change can only be introduced by leaving the old contract in place and adding a new one, which is what a side-by-side major version is. Compatible changes by definition ([Def. I.15](../../01-foundations/definitions.md#Def.%20I.15%20-%20Compatible%20Change), [CN 4](../../01-foundations/common-notions.md#CN%204%20-%20Compatibility%20Is%20Compositional)) cannot break a conforming consumer, so a version marker for them carries no information a consumer can act on and merely multiplies the contracts to maintain. The major version must be visible to caches, proxies, the edge and logs, all of which see the path and not a header, hence the path. Consumers tolerate additions ([CN 6](../../01-foundations/common-notions.md#CN%206%20-%20The%20Producer%20Pays%20for%20Stability%3B%20the%20Consumer%20Pays%20for%20Tolerance)), which is what makes in-place compatible change safe. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. II.7.1** - The OpenAPI `info.version` is the semantic version of the *document* (`2.3.1`) and is informational; only its major must equal `n`.
-* **Cor. II.7.2** - At most two majors of one API are live at once (Post. IX.1).
-* **Cor. II.7.3** - Adding a value to a *closed* enumeration on output is breaking; declare enumerations open (Prop. IV.9) when growth is anticipated.
+* **Cor. II.7.2** - At most two majors of one API are live at once ([Post. IX.1](../../09-versioning-and-deprecation/postulates.md#Post.%20IX.1%20-%20Two%20Majors%20at%20Most)).
+* **Cor. II.7.3** - Adding a value to a *closed* enumeration on output is breaking; declare enumerations open ([Prop. IV.9](../../04-shared-schemas/propositions/09-open-enumerations.md)) when growth is anticipated.
 
 ## Construction
 
@@ -33,7 +33,7 @@ Consumers lag producers indefinitely (Post. I.5, Post. II.5), and a published co
 
 ## Conformance
 
-Spectral `paths-version-prefix` (Prop. II.2); `oasdiff breaking` fails CI when the diff is breaking and the major did not change; runtime test asserts the deprecation headers on a deprecated major.
+Spectral `paths-version-prefix` ([Prop. II.2](02-resource-naming.md)); `oasdiff breaking` fails CI when the diff is breaking and the major did not change; runtime test asserts the deprecation headers on a deprecated major.
 
 ## Scholium
 

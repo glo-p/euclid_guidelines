@@ -9,20 +9,20 @@
 
 ## Statement
 
-Every API MUST have exactly one OpenAPI 3.1 document, committed in the service repository under `contracts/openapi.yaml`, that passes the company Spectral ruleset in CI. The document MUST be authored or updated *before* the implementing code is merged. Every shared concept in the document MUST be a `$ref` to the shared schema catalogue (Book IV), never a local copy.
+Every API MUST have exactly one OpenAPI 3.1 document, committed in the service repository under `contracts/openapi.yaml`, that passes the company Spectral ruleset in CI. The document MUST be authored or updated *before* the implementing code is merged. Every shared concept in the document MUST be a `$ref` to the shared schema catalogue ([Book IV](../../04-shared-schemas/README.md)), never a local copy.
 
 ## Given
 
-Def. I.2, Def. II.1, Post. I.3, Post. I.6, Post. I.7, Post. II.2, Post. II.6, CN 3, CN 5.
+[Def. I.2](../../01-foundations/definitions.md#Def.%20I.2%20-%20Contract), [Def. II.1](../definitions.md#Def.%20II.1%20-%20API), [Post. I.3](../../01-foundations/postulates.md#Post.%20I.3%20-%20Autonomy), [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification), [Post. I.7](../../01-foundations/postulates.md#Post.%20I.7%20-%20Contract%20First), [Post. II.2](../postulates.md#Post.%20II.2%20-%20OpenAPI%20Is%20the%20Contract), [Post. II.6](../postulates.md#Post.%20II.6%20-%20The%20Linter%20Is%20the%20Check), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape).
 
 ## Demonstration
 
-Teams interact only through contracts (Post. I.3), and for the consumer the contract is the whole interface (Def. I.2, CN 3). Post. I.7 says it is possible to write the contract first and generate from it; Post. II.2 says the document, not the code, is authoritative. If the document were written after the code it would describe what happened to be built rather than what was agreed, and Post. I.6 tells us the two would drift within a year unless a machine checked them; hence the linter and the CI gate (Post. II.6). Finally, by CN 5 a concept with a shared schema may not be re-described locally, so shared concepts appear only by reference. ∎ Q.E.D.
+Teams interact only through contracts ([Post. I.3](../../01-foundations/postulates.md#Post.%20I.3%20-%20Autonomy)), and for the consumer the contract is the whole interface ([Def. I.2](../../01-foundations/definitions.md#Def.%20I.2%20-%20Contract), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit)). [Post. I.7](../../01-foundations/postulates.md#Post.%20I.7%20-%20Contract%20First) says it is possible to write the contract first and generate from it; [Post. II.2](../postulates.md#Post.%20II.2%20-%20OpenAPI%20Is%20the%20Contract) says the document, not the code, is authoritative. If the document were written after the code it would describe what happened to be built rather than what was agreed, and [Post. I.6](../../01-foundations/postulates.md#Post.%20I.6%20-%20Machine%20Verification) tells us the two would drift within a year unless a machine checked them; hence the linter and the CI gate ([Post. II.6](../postulates.md#Post.%20II.6%20-%20The%20Linter%20Is%20the%20Check)). Finally, by [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape) a concept with a shared schema may not be re-described locally, so shared concepts appear only by reference. ∎ Q.E.D.
 
 ## Corollaries
 
 * **Cor. II.1.1** - Server stubs, clients and validators are generated from the document or verified against it in CI; hand-written DTOs that diverge are defects.
-* **Cor. II.1.2** - A change to the document is reviewable as a diff, and a breaking diff (Def. I.14) is detectable by tooling before merge (see Prop. IX.1).
+* **Cor. II.1.2** - A change to the document is reviewable as a diff, and a breaking diff ([Def. I.14](../../01-foundations/definitions.md#Def.%20I.14%20-%20Breaking%20Change)) is detectable by tooling before merge (see [Prop. IX.1](../../09-versioning-and-deprecation/propositions/01-only-compatible-changes-within-a-major.md)).
 * **Cor. II.1.3** - Documentation is generated from the document; there is no separate API documentation to keep in sync.
 
 ## Construction
@@ -38,7 +38,7 @@ service-repo/
 
 * Lint: `spectral lint contracts/openapi.yaml` in CI (fails the build).
 * Verify implementation matches: run the generated OpenAPI from the running app (Swashbuckle / built-in `Microsoft.AspNetCore.OpenApi`) and diff against `contracts/openapi.yaml` with `oasdiff`; any difference fails the build.
-* Breaking-change gate: `oasdiff breaking <main> <branch>` fails unless the major version changed (Prop. II.7).
+* Breaking-change gate: `oasdiff breaking <main> <branch>` fails unless the major version changed ([Prop. II.7](07-versioning.md)).
 * Reference shared schemas by absolute `$id`: `$ref: "https://schemas.company.com/shared/v1/money.json"`.
 
 ## Conformance

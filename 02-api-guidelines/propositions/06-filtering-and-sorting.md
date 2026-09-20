@@ -13,11 +13,11 @@ Collection operations that support filtering SHOULD accept one query parameter p
 
 ## Given
 
-Def. II.3, Def. II.7, Def. II.15, CN 3, CN 5, Prop. II.5.
+[Def. II.3](../definitions.md#Def.%20II.3%20-%20Collection), [Def. II.7](../definitions.md#Def.%20II.7%20-%20Cursor), [Def. II.15](../definitions.md#Def.%20II.15%20-%20Field), [CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit), [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape), [Prop. II.5](05-cursor-pagination.md).
 
 ## Demonstration
 
-Filter and sort parameters are part of the interface and therefore of the contract (CN 3); enumerating them is what makes an unknown one an error rather than silently ignored input. One grammar across APIs is CN 5 applied to query strings. The grammar must compose with cursors (Prop. II.5, Cor. II.5.1), which requires that the sort be total; the producer therefore always appends `id` as the final tie-breaker even when the consumer did not ask for it. ∎ Q.E.D.
+Filter and sort parameters are part of the interface and therefore of the contract ([CN 3](../../01-foundations/common-notions.md#CN%203%20-%20Explicit%20Is%20Greater%20Than%20Implicit)); enumerating them is what makes an unknown one an error rather than silently ignored input. One grammar across APIs is [CN 5](../../01-foundations/common-notions.md#CN%205%20-%20One%20Concept%2C%20One%20Shape) applied to query strings. The grammar must compose with cursors ([Prop. II.5](05-cursor-pagination.md), [Cor. II.5.1](05-cursor-pagination.md#Corollaries)), which requires that the sort be total; the producer therefore always appends `id` as the final tie-breaker even when the consumer did not ask for it. ∎ Q.E.D.
 
 ## Corollaries
 

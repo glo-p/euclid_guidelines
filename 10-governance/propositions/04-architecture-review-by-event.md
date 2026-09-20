@@ -10,23 +10,23 @@
 
 ## Statement
 
-An architecture review (Def. X.6) MUST be held before any of the following is built or merged: a new service (Def. I.1); a new contract (Def. I.2); a new external dependency (a SaaS, a third-party API, or an AWS service not yet used by the company); a new data store; or a new major version (Def. IX.2) of an existing contract. Architecture reviews MUST NOT be scheduled by calendar, and no other event obliges one. The review outcome MUST be recorded in the service repository or, where it changes a guideline, as an ADR.
+An architecture review ([Def. X.6](../definitions.md#Def.%20X.6%20-%20Architecture%20Review)) MUST be held before any of the following is built or merged: a new service ([Def. I.1](../../01-foundations/definitions.md#Def.%20I.1%20-%20Service)); a new contract ([Def. I.2](../../01-foundations/definitions.md#Def.%20I.2%20-%20Contract)); a new external dependency (a SaaS, a third-party API, or an AWS service not yet used by the company); a new data store; or a new major version ([Def. IX.2](../../09-versioning-and-deprecation/definitions.md#Def.%20IX.2%20-%20Major%20Version)) of an existing contract. Architecture reviews MUST NOT be scheduled by calendar, and no other event obliges one. The review outcome MUST be recorded in the service repository or, where it changes a guideline, as an ADR.
 
 ## Given
 
-* Def. I.1, Def. I.2, Def. IX.2, Def. X.6
-* Post. I.3, Post. X.3
-* CN 2, CN 8
-* Prop. IX.2, Prop. IX.8
+* [Def. I.1](../../01-foundations/definitions.md#Def.%20I.1%20-%20Service), [Def. I.2](../../01-foundations/definitions.md#Def.%20I.2%20-%20Contract), [Def. IX.2](../../09-versioning-and-deprecation/definitions.md#Def.%20IX.2%20-%20Major%20Version), [Def. X.6](../definitions.md#Def.%20X.6%20-%20Architecture%20Review)
+* [Post. I.3](../../01-foundations/postulates.md#Post.%20I.3%20-%20Autonomy), [Post. X.3](../postulates.md#Post.%20X.3%20-%20Every%20Service%20Has%20a%20Repository)
+* [CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed), [CN 8](../../01-foundations/common-notions.md#CN%208%20-%20The%20Whole%20Is%20Not%20Greater%20Than%20Its%20Contracts)
+* [Prop. IX.2](../../09-versioning-and-deprecation/propositions/02-breaking-change-is-a-new-major-side-by-side.md), [Prop. IX.8](../../09-versioning-and-deprecation/propositions/08-lifecycle-stage-is-machine-readable.md)
 
 ## Demonstration
 
-By CN 8 the architecture is exactly the contracts and the topology connecting them, so architecture changes only when a contract, a node in the topology (a service, a data store, an external dependency) or a major version (Prop. IX.2) is added. Those are the events listed; anything else is implementation, which by Post. I.3 belongs to the team alone. A calendar review either arrives when nothing has changed, wasting the team's autonomy, or after the change is built and owed (CN 2), when it is too late to alter. By Post. X.3 every change passes through a repository, so the trigger can be detected there and the outcome recorded there. ∎ Q.E.D.
+By [CN 8](../../01-foundations/common-notions.md#CN%208%20-%20The%20Whole%20Is%20Not%20Greater%20Than%20Its%20Contracts) the architecture is exactly the contracts and the topology connecting them, so architecture changes only when a contract, a node in the topology (a service, a data store, an external dependency) or a major version ([Prop. IX.2](../../09-versioning-and-deprecation/propositions/02-breaking-change-is-a-new-major-side-by-side.md)) is added. Those are the events listed; anything else is implementation, which by [Post. I.3](../../01-foundations/postulates.md#Post.%20I.3%20-%20Autonomy) belongs to the team alone. A calendar review either arrives when nothing has changed, wasting the team's autonomy, or after the change is built and owed ([CN 2](../../01-foundations/common-notions.md#CN%202%20-%20A%20Published%20Contract%20Is%20Owed)), when it is too late to alter. By [Post. X.3](../postulates.md#Post.%20X.3%20-%20Every%20Service%20Has%20a%20Repository) every change passes through a repository, so the trigger can be detected there and the outcome recorded there. ∎ Q.E.D.
 
 ## Corollaries
 
-* **Cor. X.4.1** - A new major version is reviewed at the Proposed stage (Def. IX.4) and cannot become Active without the review outcome linked from its catalogue entry (Prop. IX.8).
-* **Cor. X.4.2** - A review that finds a guideline would be violated ends either with the design changed or with a proposal (Def. X.2); it never ends with silent deviation.
+* **Cor. X.4.1** - A new major version is reviewed at the Proposed stage ([Def. IX.4](../../09-versioning-and-deprecation/definitions.md#Def.%20IX.4%20-%20Lifecycle%20Stage)) and cannot become Active without the review outcome linked from its catalogue entry ([Prop. IX.8](../../09-versioning-and-deprecation/propositions/08-lifecycle-stage-is-machine-readable.md)).
+* **Cor. X.4.2** - A review that finds a guideline would be violated ends either with the design changed or with a proposal ([Def. X.2](../definitions.md#Def.%20X.2%20-%20Proposal%20%28RFC%29)); it never ends with silent deviation.
 
 ## Construction
 

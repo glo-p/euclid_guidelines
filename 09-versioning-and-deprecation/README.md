@@ -1,38 +1,38 @@
 # Book IX - Versioning and Deprecation
 
-Book IX governs the lifecycle of **any** contract (Def. I.2): an OpenAPI document, an event type, or a shared schema. It says how a contract is introduced, how it may change without breaking anyone, how a breaking change is introduced beside the old one, how consumers are told, and how a version is finally removed. The books that own each kind of contract (II, III, IV) say how the mechanics look in their medium; this book says what the mechanics are for and in which order they happen.
+Book IX governs the lifecycle of **any** contract ([Def. I.2](../01-foundations/definitions.md#Def.%20I.2%20-%20Contract)): an OpenAPI document, an event type, or a shared schema. It says how a contract is introduced, how it may change without breaking anyone, how a breaking change is introduced beside the old one, how consumers are told, and how a version is finally removed. The books that own each kind of contract (II, III, IV) say how the mechanics look in their medium; this book says what the mechanics are for and in which order they happen.
 
-Depth: **Scaffold**. Every proposition is `Draft` until its machine check exists (Prop. I.3).
+Depth: **Scaffold**. Every proposition is `Draft` until its machine check exists ([Prop. I.3](../01-foundations/method.md#Prop.%20I.3%20-%20Every%20MUST%20has%20a%20machine%20check)).
 
 ## Contents
 
 | File | Contents |
 |---|---|
-| [`definitions.md`](definitions.md) | `Def. IX.1` to `Def. IX.9`: version, major version, minor change, lifecycle stage, deprecation notice, sunset date, migration guide, consumer registry, traffic evidence. |
-| [`postulates.md`](postulates.md) | `Post. IX.1` to `Post. IX.3`: at most two majors live at once; minimum deprecation periods; consumers are enumerable. |
-| [`propositions/`](propositions/) | `Prop. IX.1` to `Prop. IX.8`. |
+| [`definitions.md`](definitions.md) | [`Def. IX.1`](definitions.md#Def.%20IX.1%20-%20Version) to [`Def. IX.9`](definitions.md#Def.%20IX.9%20-%20Traffic%20Evidence): version, major version, minor change, lifecycle stage, deprecation notice, sunset date, migration guide, consumer registry, traffic evidence. |
+| [`postulates.md`](postulates.md) | [`Post. IX.1`](postulates.md#Post.%20IX.1%20-%20Two%20Majors%20at%20Most) to [`Post. IX.3`](postulates.md#Post.%20IX.3%20-%20Consumers%20Are%20Enumerable): at most two majors live at once; minimum deprecation periods; consumers are enumerable. |
+| [`propositions/`](propositions/) | [`Prop. IX.1`](propositions/01-only-compatible-changes-within-a-major.md) to [`Prop. IX.8`](propositions/08-lifecycle-stage-is-machine-readable.md). |
 
 ## Definitions
 
 | Id | Term | Summary |
 |---|---|---|
-| Def. IX.1 | Version | A named, immutable revision of a contract. |
-| Def. IX.2 | Major Version | The integer a consumer selects; changes only on a breaking change. |
-| Def. IX.3 | Minor Change | A compatible change published within a major version. |
-| Def. IX.4 | Lifecycle Stage | One of Proposed, Active, Deprecated, Sunset, Retired, with precise meanings. |
-| Def. IX.5 | Deprecation Notice | The dated, machine-readable declaration that a version is Deprecated. |
-| Def. IX.6 | Sunset Date | The date after which a Deprecated version is no longer owed. |
-| Def. IX.7 | Migration Guide | The document that takes a consumer from major N to major N+1. |
-| Def. IX.8 | Consumer Registry | The enumerated set of consumers of each contract version. |
-| Def. IX.9 | Traffic Evidence | Telemetry that shows whether a version is still used. |
+| [Def. IX.1](definitions.md#Def.%20IX.1%20-%20Version) | Version | A named, immutable revision of a contract. |
+| [Def. IX.2](definitions.md#Def.%20IX.2%20-%20Major%20Version) | Major Version | The integer a consumer selects; changes only on a breaking change. |
+| [Def. IX.3](definitions.md#Def.%20IX.3%20-%20Minor%20Change) | Minor Change | A compatible change published within a major version. |
+| [Def. IX.4](definitions.md#Def.%20IX.4%20-%20Lifecycle%20Stage) | Lifecycle Stage | One of Proposed, Active, Deprecated, Sunset, Retired, with precise meanings. |
+| [Def. IX.5](definitions.md#Def.%20IX.5%20-%20Deprecation%20Notice) | Deprecation Notice | The dated, machine-readable declaration that a version is Deprecated. |
+| [Def. IX.6](definitions.md#Def.%20IX.6%20-%20Sunset%20Date) | Sunset Date | The date after which a Deprecated version is no longer owed. |
+| [Def. IX.7](definitions.md#Def.%20IX.7%20-%20Migration%20Guide) | Migration Guide | The document that takes a consumer from major N to major N+1. |
+| [Def. IX.8](definitions.md#Def.%20IX.8%20-%20Consumer%20Registry) | Consumer Registry | The enumerated set of consumers of each contract version. |
+| [Def. IX.9](definitions.md#Def.%20IX.9%20-%20Traffic%20Evidence) | Traffic Evidence | Telemetry that shows whether a version is still used. |
 
 ## Postulates
 
 | Id | Summary |
 |---|---|
-| Post. IX.1 | At most two major versions of one contract are Active or Deprecated at the same time. |
-| Post. IX.2 | Minimum deprecation period: 6 months internal, 12 months external. |
-| Post. IX.3 | The consumers of any contract version can be enumerated. |
+| [Post. IX.1](postulates.md#Post.%20IX.1%20-%20Two%20Majors%20at%20Most) | At most two major versions of one contract are Active or Deprecated at the same time. |
+| [Post. IX.2](postulates.md#Post.%20IX.2%20-%20Minimum%20Deprecation%20Period) | Minimum deprecation period: 6 months internal, 12 months external. |
+| [Post. IX.3](postulates.md#Post.%20IX.3%20-%20Consumers%20Are%20Enumerable) | The consumers of any contract version can be enumerated. |
 
 ## Propositions
 
@@ -53,13 +53,13 @@ Definitions, then postulates, then IX.1 and IX.2 (how a contract changes), then 
 
 ## Open questions
 
-Decisions the principal engineers still need to make. Each is resolved only by an ADR (Prop. X.7).
+Decisions the principal engineers still need to make. Each is resolved only by an ADR ([Prop. X.7](../10-governance/propositions/07-open-questions-resolved-by-adr.md)).
 
-1. **Deprecation periods.** Post. IX.2 states 6 months internal and 12 months external. Confirm the numbers, and decide whether a contract with no external consumers may use the shorter period automatically or only by declaration.
-2. **Zero-traffic window.** Prop. IX.5 requires 30 days of zero traffic before Sunset. Confirm 30 days, and decide whether the window is measured in `prod` only or in every environment (Def. I.21).
-3. **Consumer registry store.** Prop. IX.4 needs a store. Candidates: a table in the catalogue repository (Def. I.24), a DynamoDB table populated by a scheduled Lambda, or the AWS Service Catalog AppRegistry. Choose one.
-4. **Client identity for internal API consumers.** API Gateway API keys identify external consumers. For service-to-service calls the identity is the access token subject (Book V). Decide which claim is the canonical consumer identifier.
+1. **Deprecation periods.** [Post. IX.2](postulates.md#Post.%20IX.2%20-%20Minimum%20Deprecation%20Period) states 6 months internal and 12 months external. Confirm the numbers, and decide whether a contract with no external consumers may use the shorter period automatically or only by declaration.
+2. **Zero-traffic window.** [Prop. IX.5](propositions/05-sunset-on-evidence-retirement-removes.md) requires 30 days of zero traffic before Sunset. Confirm 30 days, and decide whether the window is measured in `prod` only or in every environment ([Def. I.21](../01-foundations/definitions.md#Def.%20I.21%20-%20Environment)).
+3. **Consumer registry store.** [Prop. IX.4](propositions/04-producers-know-their-consumers.md) needs a store. Candidates: a table in the catalogue repository ([Def. I.24](../01-foundations/definitions.md#Def.%20I.24%20-%20Catalogue)), a DynamoDB table populated by a scheduled Lambda, or the AWS Service Catalog AppRegistry. Choose one.
+4. **Client identity for internal API consumers.** API Gateway API keys identify external consumers. For service-to-service calls the identity is the access token subject ([Book V](../05-security/README.md)). Decide which claim is the canonical consumer identifier.
 5. **Event consumers outside the account.** EventBridge rule inventory covers rules in the bus's account. Decide how cross-account event bus targets are enumerated.
-6. **Adapter obligation.** Prop. IX.7 makes an adapter a SHOULD. Decide whether a producer-side adapter (serve N from N+1) is required for APIs, for events, or neither.
+6. **Adapter obligation.** [Prop. IX.7](propositions/07-every-major-ships-with-a-migration-guide.md) makes an adapter a SHOULD. Decide whether a producer-side adapter (serve N from N+1) is required for APIs, for events, or neither.
 7. **Retired contract artefacts.** Decide whether a Retired version is deleted from the catalogue or kept under a `retired/` path for audit.
 8. **Pre-release versions.** Decide whether the `Proposed` stage is served in any environment or only exists in the repository.

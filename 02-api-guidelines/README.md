@@ -6,8 +6,8 @@ Book II governs every synchronous interface a service exposes: how it is named, 
 
 | File                               | Contents                                                                                                                                            |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`definitions.md`](definitions.md) | `Def. II.1` - `Def. II.18`: API, operation, collection, page, cursor, problem, edge, envelope, …                                                    |
-| [`postulates.md`](postulates.md)   | `Post. II.1` - `Post. II.6`: HTTP semantics are authoritative, OpenAPI is the contract, JSON is the representation, the edge is the only ingress, … |
+| [`definitions.md`](definitions.md) | [`Def. II.1`](definitions.md#Def.%20II.1%20-%20API) - [`Def. II.18`](definitions.md#Def.%20II.18%20-%20Sub-resource): API, operation, collection, page, cursor, problem, edge, envelope, …                                                    |
+| [`postulates.md`](postulates.md)   | [`Post. II.1`](postulates.md#Post.%20II.1%20-%20HTTP%20Is%20Authoritative) - [`Post. II.6`](postulates.md#Post.%20II.6%20-%20The%20Linter%20Is%20the%20Check): HTTP semantics are authoritative, OpenAPI is the contract, JSON is the representation, the edge is the only ingress, … |
 
 ### Propositions
 
@@ -33,10 +33,10 @@ Book II governs every synchronous interface a service exposes: how it is named, 
 
 ## Reading order
 
-II.1, II.2, II.3, II.4 and II.11 are the core; a service that satisfies those five is recognisably "ours". II.5 to II.10 make it robust under Post. I.4 and Post. I.5. II.12 to II.16 make it operable. II.17 shows how to get all of it from one project template.
+II.1, II.2, II.3, II.4 and II.11 are the core; a service that satisfies those five is recognisably "ours". II.5 to II.10 make it robust under [Post. I.4](../01-foundations/postulates.md#Post.%20I.4%20-%20Unreliable%20Network) and [Post. I.5](../01-foundations/postulates.md#Post.%20I.5%20-%20Independent%20Evolution). II.12 to II.16 make it operable. II.17 shows how to get all of it from one project template.
 
 ## Open questions
 
 * Whether to permit `PATCH` with JSON Merge Patch (RFC 7386) only, or also JSON Patch (RFC 6902). Current text: Merge Patch only (see II.3).
 * Whether bulk operations (`POST /things:batch`) deserve their own proposition. Current text: covered by a scholium under II.15.
-* Whether the company Spectral ruleset is published from this repository or from the catalogue repository (Book IV). Current text: this repository, under `rulesets/`.
+* Whether the company Spectral ruleset is published from this repository or from the catalogue repository ([Book IV](../04-shared-schemas/README.md)). Current text: this repository, under `rulesets/`.
