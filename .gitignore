@@ -1,0 +1,56 @@
+# Obsidian: keep shared vault settings (app, appearance, core plugins, themes), ignore per-user state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+
+# Operating system and editors
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node tooling used to validate schemas and lint OpenAPI (ajv, spectral, json-schema-diff)
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+.npm/
+
+# Generated code from the catalogue: produced by CI, never committed here
+gen/
+dist/
+out/
+
+# .NET, in case a template or sample project is added alongside the guidelines
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Terraform, in case module examples are added
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+
+# Secrets and local configuration: never in source (Prop. V.4)
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+appsettings.*.local.json
+
+# Scratch and temporary files
+tmp/
+*.tmp
+*.log
