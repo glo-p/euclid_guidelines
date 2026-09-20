@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/operation.json",
+  "title": "Operation",
+  "description": "A long-running operation resource returned with 202 Accepted and polled at /v{n}/operations/{id}. result is present only when status is succeeded; error only when failed.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["id", "status", "createdAt", "updatedAt"],
+  "properties": {
+    "id": { "$ref": "https://schemas.company.com/shared/v1/identifier.json" },
+    "status": { "type": "string", "enum": ["pending", "running", "succeeded", "failed", "cancelled"] },
+    "createdAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "updatedAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "completedAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "progress": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Optional percentage." },
+    "result": {
+      "type": "object",
+      "description": "Outcome on success. resourceUri when a resource was created; otherwise operation-specific fields declared by the API.",
+      "properties": { "resourceUri": { "type": "string", "format": "uri-reference" } }
+    },
+    "error": { "$ref": "https://schemas.company.com/shared/v1/problem-details.json" }
+  },
+  "allOf": [
+    { "if": { "properties": { "status": { "const": "succeeded" } } }, "then": { "required": ["result", "completedAt"] } },
+    { "if": { "properties": { "status": { "const": "failed" } } }, "then": { "required": ["error", "completedAt"] } }
+  ],
+  "examples": [
+    { "id": "01J8QJ5A0B1C2D3E4F5G6H7J8K", "status": "running", "createdAt": "2026-09-20T14:03:00.000Z", "updatedAt": "2026-09-20T14:03:05.000Z", "progress": 40 },
+    { "id": "01J8QJ5A0B1C2D3E4F5G6H7J8K", "status": "succeeded", "createdAt": "2026-09-20T14:03:00.000Z", "updatedAt": "2026-09-20T14:03:30.000Z", "completedAt": "2026-09-20T14:03:30.000Z", "result": { "resourceUri": "/v1/exports/01J8QJ5B0000000000000EXPRT" } }
+  ]
+}

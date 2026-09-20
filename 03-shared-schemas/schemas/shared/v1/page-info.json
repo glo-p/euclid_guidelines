@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/page-info.json",
+  "title": "PageInfo",
+  "description": "Cursor pagination state. nextCursor is null when hasNext is false. Cursors are opaque and bound to the operation and its parameters.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["hasNext", "nextCursor"],
+  "additionalProperties": false,
+  "properties": {
+    "hasNext": { "type": "boolean" },
+    "nextCursor": { "oneOf": [ { "$ref": "#/$defs/cursor" }, { "type": "null" } ] },
+    "previousCursor": { "oneOf": [ { "$ref": "#/$defs/cursor" }, { "type": "null" } ], "description": "Optional; present only if the operation supports backwards navigation." },
+    "limit": { "type": "integer", "minimum": 1, "maximum": 200, "description": "The effective page size used." }
+  },
+  "$defs": {
+    "cursor": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,512}$", "description": "base64url, opaque." }
+  },
+  "examples": [
+    { "hasNext": true, "nextCursor": "eyJrIjoiMjAyNi0wOS0yMFQxNDowMzowMFoiLCJpZCI6IjAxSjhRSjJBN0g1RjREM0MyQjFBMFpZWFdWIiwidiI6MX0", "limit": 50 },
+    { "hasNext": false, "nextCursor": null, "limit": 50 }
+  ]
+}

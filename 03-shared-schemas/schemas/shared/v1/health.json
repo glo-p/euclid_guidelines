@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/health.json",
+  "title": "Health",
+  "description": "Body of /health/live and /health/ready. status is healthy (200), degraded (200, non-critical check failing) or unhealthy (503).",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["status", "service", "version", "checkedAt"],
+  "additionalProperties": false,
+  "properties": {
+    "status": { "type": "string", "enum": ["healthy", "degraded", "unhealthy"] },
+    "service": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "version": { "type": "string", "description": "Build version or git SHA of the running artefact." },
+    "checkedAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "durationMs"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "type": "string", "enum": ["healthy", "degraded", "unhealthy"] },
+          "critical": { "type": "boolean", "default": true },
+          "durationMs": { "type": "integer", "minimum": 0 },
+          "description": { "type": "string", "maxLength": 500, "description": "No connection strings, hosts or secrets." }
+        }
+      }
+    }
+  },
+  "examples": [
+    { "status": "healthy", "service": "orders-api", "version": "2026.09.20.1-a1b2c3d", "checkedAt": "2026-09-20T14:03:00.000Z",
+      "checks": [ { "name": "database", "status": "healthy", "critical": true, "durationMs": 12 }, { "name": "outbox-lag", "status": "healthy", "critical": false, "durationMs": 3 } ] }
+  ]
+}

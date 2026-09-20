@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/event-envelope.json",
+  "title": "EventEnvelope",
+  "description": "CloudEvents 1.0 JSON structured envelope with company extensions. Applies to events and commands. data validates separately against the schema named in dataschema.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["specversion", "id", "source", "type", "time", "subject", "datacontenttype", "dataschema", "traceparent", "sequence", "data"],
+  "properties": {
+    "specversion": { "const": "1.0" },
+    "id": { "$ref": "https://schemas.company.com/shared/v1/identifier.json" },
+    "source": { "type": "string", "pattern": "^/[a-z][a-z0-9-]*/[a-z][a-z0-9-]*$", "description": "/<bounded-context>/<service-name>" },
+    "type": { "type": "string", "pattern": "^com\\.company\\.[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*\\.[a-z][a-z0-9-]*\\.v[1-9][0-9]*$" },
+    "time": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "subject": { "type": "string", "maxLength": 200, "description": "Ordering key: the identifier of the aggregate the message is about." },
+    "datacontenttype": { "const": "application/json" },
+    "dataschema": { "type": "string", "format": "uri", "pattern": "^https://schemas\\.company\\.com/[a-z][a-z0-9-]*/v[1-9][0-9]*/[a-z0-9-]+\\.json$" },
+    "traceparent": { "type": "string", "pattern": "^00-[0-9a-f]{32}-[0-9a-f]{16}-[0-9a-f]{2}$" },
+    "tracestate": { "type": "string", "maxLength": 512 },
+    "causationid": { "$ref": "https://schemas.company.com/shared/v1/identifier.json" },
+    "sequence": { "type": "string", "pattern": "^[0-9]{1,19}$", "description": "Monotonic per subject; the aggregate version after the change." },
+    "tenantid": { "$ref": "https://schemas.company.com/shared/v1/identifier.json" },
+    "dataclassification": { "type": "string", "enum": ["public", "internal", "confidential"], "description": "Highest classification present in data. 'restricted' is not permitted in messages." },
+    "data": { "type": "object" }
+  },
+  "examples": [
+    {
+      "specversion": "1.0",
+      "id": "01J8QJ4Z9V6K3P2M1N0RSTVWXY",
+      "source": "/orders/orders-api",
+      "type": "com.company.orders.order.placed.v1",
+      "time": "2026-09-20T14:03:00.000Z",
+      "subject": "01J8QJ2A7H5F4D3C2B1A0ZYXWV",
+      "datacontenttype": "application/json",
+      "dataschema": "https://schemas.company.com/orders/v1/order-placed.json",
+      "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+      "causationid": "01J8QJ4X1B2C3D4E5F6G7H8J9K",
+      "sequence": "7",
+      "tenantid": "01J8Q000000000000000TENANT",
+      "dataclassification": "internal",
+      "data": { "orderId": "01J8QJ2A7H5F4D3C2B1A0ZYXWV", "total": { "amount": "120.00", "currency": "GBP" } }
+    }
+  ]
+}

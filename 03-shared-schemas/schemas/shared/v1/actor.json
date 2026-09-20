@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/actor.json",
+  "title": "Actor",
+  "description": "The identity that performed an action. type is an open enumeration; id is the principal's subject for users, the service name for services, and a fixed token for system actors.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["type", "id"],
+  "additionalProperties": false,
+  "properties": {
+    "type": { "type": "string", "x-known-values": ["user", "service", "system", "api-key"], "description": "Open enumeration." },
+    "id": { "type": "string", "maxLength": 200 },
+    "displayName": { "type": "string", "maxLength": 200, "description": "Optional, for display only; never used for authorisation. Classified Internal." },
+    "onBehalfOf": { "$ref": "#", "description": "Present when a service acted for a user (delegation)." }
+  },
+  "examples": [
+    { "type": "user", "id": "01J8Q000000000000000PRSN01", "displayName": "A. Person" },
+    { "type": "service", "id": "billing-worker", "onBehalfOf": { "type": "user", "id": "01J8Q000000000000000PRSN01" } },
+    { "type": "system", "id": "scheduler" }
+  ]
+}

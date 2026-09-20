@@ -1,0 +1,70 @@
+# @company/spectral-ruleset (starting point; each rule cites its proposition)
+extends: ["spectral:oas"]
+rules:
+  paths-kebab-case:                 # Prop. II.2
+    description: Static path segments are kebab-case.
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/v[0-9]+)(/([a-z0-9]+(-[a-z0-9]+)*|\\{[a-z][A-Za-z0-9]*Id\\}))*$"
+  paths-no-trailing-slash:          # Prop. II.2
+    severity: error
+    given: "$.paths[*]~"
+    then: { function: pattern, functionOptions: { notMatch: "/$" } }
+  paths-no-verbs:                   # Prop. II.2
+    severity: error
+    given: "$.paths[*]~"
+    then: { function: pattern, functionOptions: { notMatch: "/(get|create|update|delete|do|run|execute|process|fetch|list)(/|$)" } }
+  paths-version-prefix:             # Prop. II.2, II.7
+    severity: error
+    given: "$.paths[*]~"
+    then: { function: pattern, functionOptions: { match: "^/(v[1-9][0-9]*/|health/)" } }
+  operation-4xx-problem:            # Prop. II.3, II.4
+    description: Every 4xx/5xx response is application/problem+json using the shared schema.
+    severity: error
+    given: "$.paths[*][*].responses[?(@property >= 400)]"
+    then:
+      - field: "content.application/problem+json.schema.$ref"
+        function: pattern
+        functionOptions: { match: "^https://schemas\\.company\\.com/shared/v1/problem-details\\.json$" }
+  post-has-idempotency-key:         # Prop. II.8
+    severity: error
+    given: "$.paths[*].post"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          anyOf:
+            - properties: { x-idempotent: { const: true } }
+              required: [x-idempotent]
+            - properties:
+                parameters:
+                  contains:
+                    properties: { name: { const: Idempotency-Key }, in: { const: header }, required: { const: true } }
+              required: [parameters]
+  no-x-headers:                     # Prop. II.10
+    severity: error
+    given: "$..parameters[?(@.in == 'header')].name"
+    then: { function: pattern, functionOptions: { notMatch: "^[Xx]-" } }
+  property-names-camel-case:        # Prop. II.11
+    severity: error
+    given: "$..properties[*]~"
+    then: { function: pattern, functionOptions: { match: "^[a-z][A-Za-z0-9]*$" } }
+  money-is-shared-ref:              # Prop. II.11, IV.3
+    severity: error
+    given: "$..properties[?(@property.match(/(Amount|Price|Total|Cost|Fee)$/))]"
+    then:
+      field: "$ref"
+      function: pattern
+      functionOptions: { match: "^https://schemas\\.company\\.com/shared/v1/money\\.json$" }
+  operation-has-security:           # Prop. II.12
+    severity: error
+    given: "$.paths[?(!@property.match(/^\\/health/))][get,post,put,patch,delete]"
+    then: { field: security, function: truthy }
+  collection-returns-page:          # Prop. II.5, IV.6
+    description: A 200 response whose schema is an array must be wrapped in the shared Page.
+    severity: error
+    given: "$.paths[*].get.responses.200.content.application/json.schema"
+    then: { field: type, function: pattern, functionOptions: { notMatch: "^array$" } }

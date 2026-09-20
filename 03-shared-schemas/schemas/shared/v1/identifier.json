@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/identifier.json",
+  "title": "Identifier",
+  "description": "Opaque, permanent identifier of a resource, aggregate or message. A ULID: 26 characters of Crockford base32, lexicographically sortable by creation time. Consumers must not decode or derive meaning from it.",
+  "x-lifecycle": "active",
+  "type": "string",
+  "pattern": "^[0-7][0-9A-HJKMNP-TV-Z]{25}$",
+  "minLength": 26,
+  "maxLength": 26,
+  "examples": ["01J8QJ2A7H5F4D3C2B1A0ZYXWV"]
+}

@@ -1,0 +1,34 @@
+# Prop. II.14 - Reads are cacheable and conditional
+
+| | |
+|---|---|
+| **Level** | SHOULD |
+| **Status** | Accepted |
+| **Since** | 2026-09-20 |
+| **Owner** | Principal engineers |
+
+## Statement
+
+Every `GET` response MUST carry an explicit `Cache-Control` header. Item `GET`s SHOULD return `ETag` (Prop. II.9) and honour `If-None-Match` with `304`. Responses containing tenant or principal data MUST be `Cache-Control: private` (or `no-store` where the data is classified Restricted, Book V). Only representations that are identical for every principal MAY be `public`.
+
+## Given
+
+Def. II.11, Post. II.1, Post. II.5, CN 3, Prop. II.9, Prop. V.5.
+
+## Demonstration
+
+HTTP caching (Post. II.1) is performed by browsers, CDNs and proxies we do not control (Post. II.5); their default behaviour in the absence of a header is heuristic and therefore unsafe for tenant data. An explicit header makes the cacheability part of the contract (CN 3). Conditional GET reuses the validator already required for concurrency (Prop. II.9), so it is free to add and it removes bandwidth for polling clients. ∎ Q.E.D.
+
+## Corollaries
+
+* **Cor. II.14.1** - `POST` results and Problems are never cacheable; the template sets `no-store` on them.
+* **Cor. II.14.2** - Reference data (Prop. VII.4) is the primary candidate for `public, max-age`, served with a long lifetime and versioned URLs.
+
+## Construction
+
+* ASP.NET Core `[ResponseCache]` or output caching middleware for public reference data; an endpoint filter that sets `private, no-cache` (revalidate every time) as the default for everything else and computes `304` from the entity version.
+* CloudFront in front of the edge only for `public` routes.
+
+## Conformance
+
+Spectral: `get-declares-cache-control` (every `GET` `200` declares the header). Template test: default `GET` carries `Cache-Control: private, no-cache`.

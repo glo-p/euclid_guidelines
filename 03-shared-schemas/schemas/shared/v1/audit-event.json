@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/audit-event.json",
+  "title": "AuditEvent",
+  "description": "Payload of com.company.<context>.audit.action-performed.v1. Records who did what to which resource with what outcome. Never contains the data itself, only references and a classification.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["actor", "action", "resource", "outcome", "occurredAt"],
+  "additionalProperties": false,
+  "properties": {
+    "actor": { "$ref": "https://schemas.company.com/shared/v1/actor.json" },
+    "action": { "type": "string", "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)*$", "description": "Dot-separated verb phrase, e.g. order.cancel, user.role.grant, export.download." },
+    "resource": {
+      "type": "object",
+      "required": ["type", "id"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "id": { "type": "string", "maxLength": 200 },
+        "uri": { "type": "string", "format": "uri-reference" }
+      }
+    },
+    "outcome": { "type": "string", "enum": ["success", "denied", "failed"] },
+    "reason": { "type": "string", "maxLength": 500, "description": "Problem type URI or short reason when outcome is denied or failed." },
+    "occurredAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "tenantId": { "$ref": "https://schemas.company.com/shared/v1/identifier.json" },
+    "clientId": { "type": "string", "maxLength": 200, "description": "OAuth client id of the calling software." },
+    "sourceIp": { "type": "string", "description": "Classified Confidential; present only for edge-originated actions." },
+    "dataClassification": { "type": "string", "enum": ["public", "internal", "confidential", "restricted"], "description": "Classification of the data touched, not carried." },
+    "attributes": { "type": "object", "additionalProperties": { "type": "string", "maxLength": 200 }, "description": "Small set of non-sensitive context values, e.g. previous and new status." }
+  },
+  "examples": [
+    { "actor": { "type": "user", "id": "01J8Q000000000000000PRSN01" }, "action": "order.cancel",
+      "resource": { "type": "order", "id": "01J8QJ2A7H5F4D3C2B1A0ZYXWV", "uri": "/v1/orders/01J8QJ2A7H5F4D3C2B1A0ZYXWV" },
+      "outcome": "success", "occurredAt": "2026-09-20T14:03:00.000Z", "tenantId": "01J8Q000000000000000TENANT",
+      "clientId": "web-portal", "dataClassification": "internal", "attributes": { "previousStatus": "placed", "newStatus": "cancelled" } }
+  ]
+}

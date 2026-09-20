@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/timestamp.json",
+  "title": "Timestamp",
+  "description": "An instant in time. RFC 3339, UTC only (Z suffix), millisecond precision on output. Input accepts any RFC 3339 offset and is normalised to UTC.",
+  "x-lifecycle": "active",
+  "type": "string",
+  "format": "date-time",
+  "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?(Z|[+-][0-9]{2}:[0-9]{2})$",
+  "examples": ["2026-09-20T14:03:00.000Z"]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/problem-details.json",
+  "title": "ProblemDetails",
+  "description": "RFC 9457 problem details with company extensions. Media type application/problem+json. Never contains stack traces or internal identifiers.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["type", "title", "status", "traceId"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://problems\\.company\\.com/[a-z0-9-]+(/[a-z0-9-]+)*$",
+      "description": "Stable URI identifying the kind of problem. Listed in the API contract and in the problem registry."
+    },
+    "title": { "type": "string", "maxLength": 200, "description": "Short human-readable summary, constant per type." },
+    "status": { "type": "integer", "minimum": 400, "maximum": 599 },
+    "detail": { "type": "string", "maxLength": 2000, "description": "Occurrence-specific explanation, safe to display to an end user. Not localised." },
+    "instance": { "type": "string", "format": "uri-reference", "description": "URI reference of the specific occurrence, usually the request path." },
+    "traceId": { "type": "string", "pattern": "^[0-9a-f]{32}$", "description": "W3C trace-id of the request." },
+    "errors": {
+      "type": "array",
+      "description": "Field-level errors for validation and business-rule failures.",
+      "items": {
+        "type": "object",
+        "required": ["code", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "field": { "type": "string", "description": "JSON path of the offending field, e.g. lines[0].quantity. Absent for object-level errors." },
+          "code": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Machine-readable rule code, stable per API." },
+          "message": { "type": "string", "maxLength": 500 }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "type": "https://problems.company.com/validation-failed",
+      "title": "The request failed validation.",
+      "status": 400,
+      "detail": "Two fields are invalid.",
+      "instance": "/v1/orders",
+      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736",
+      "errors": [
+        { "field": "lines[0].quantity", "code": "range", "message": "Must be at least 1." },
+        { "field": "currency", "code": "invalid-currency", "message": "'XXX' is not an ISO 4217 code." }
+      ]
+    },
+    {
+      "type": "https://problems.company.com/not-found",
+      "title": "The resource was not found.",
+      "status": 404,
+      "instance": "/v1/orders/01J8QJ2A7H5F4D3C2B1A0ZYXWV",
+      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+    }
+  ]
+}

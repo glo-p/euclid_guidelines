@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/page.json",
+  "title": "Page",
+  "description": "Collection envelope. APIs specialise it with allOf and a constrained items schema. items is never null; an empty page is an empty array.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["items", "pageInfo"],
+  "properties": {
+    "items": { "type": "array" },
+    "pageInfo": { "$ref": "https://schemas.company.com/shared/v1/page-info.json" }
+  },
+  "examples": [
+    { "items": [], "pageInfo": { "hasNext": false, "nextCursor": null } }
+  ]
+}

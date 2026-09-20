@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/money.json",
+  "title": "Money",
+  "description": "A monetary amount in a single currency. amount is a decimal string with at most the currency's ISO 4217 minor-unit digits (2 for GBP, 0 for JPY, 3 for KWD) and an optional leading minus. Never a JSON number.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["amount", "currency"],
+  "additionalProperties": false,
+  "properties": {
+    "amount": {
+      "type": "string",
+      "pattern": "^-?(0|[1-9][0-9]{0,17})(\\.[0-9]{1,4})?$",
+      "description": "Decimal string. Scale must not exceed the currency's minor units. No exponent, no thousands separators, no currency symbol."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 4217 alphabetic code, upper case."
+    }
+  },
+  "examples": [
+    { "amount": "120.00", "currency": "GBP" },
+    { "amount": "-5.50", "currency": "EUR" },
+    { "amount": "1500", "currency": "JPY" },
+    { "amount": "0.000", "currency": "KWD" }
+  ]
+}

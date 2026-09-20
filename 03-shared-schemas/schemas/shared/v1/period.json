@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/period.json",
+  "title": "Period",
+  "description": "A half-open interval [start, end). end is null or absent for an open-ended period. start must be before end when both present.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["start"],
+  "additionalProperties": false,
+  "properties": {
+    "start": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "end": { "oneOf": [ { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" }, { "type": "null" } ] }
+  },
+  "examples": [
+    { "start": "2026-09-01T00:00:00.000Z", "end": "2026-10-01T00:00:00.000Z" },
+    { "start": "2026-09-20T14:03:00.000Z", "end": null }
+  ]
+}

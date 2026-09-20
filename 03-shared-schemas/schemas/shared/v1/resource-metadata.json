@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.company.com/shared/v1/resource-metadata.json",
+  "title": "ResourceMetadata",
+  "description": "Lifecycle metadata present on every item representation under the field name 'metadata'. version is the concurrency token and equals the unquoted ETag; for event-publishing aggregates it equals the event 'sequence'.",
+  "x-lifecycle": "active",
+  "type": "object",
+  "required": ["createdAt", "updatedAt", "version"],
+  "additionalProperties": false,
+  "properties": {
+    "createdAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "createdBy": { "$ref": "https://schemas.company.com/shared/v1/actor.json" },
+    "updatedAt": { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" },
+    "updatedBy": { "$ref": "https://schemas.company.com/shared/v1/actor.json" },
+    "version": { "type": "string", "pattern": "^[0-9]{1,19}$", "description": "Monotonic per resource. String to avoid precision loss." },
+    "deletedAt": { "oneOf": [ { "$ref": "https://schemas.company.com/shared/v1/timestamp.json" }, { "type": "null" } ], "description": "Present and non-null only for soft-deleted resources exposed to administrative APIs." }
+  },
+  "examples": [
+    {
+      "createdAt": "2026-09-20T14:03:00.000Z",
+      "createdBy": { "type": "user", "id": "01J8Q000000000000000PRSN01" },
+      "updatedAt": "2026-09-20T14:05:12.417Z",
+      "updatedBy": { "type": "service", "id": "billing-worker" },
+      "version": "7"
+    }
+  ]
+}
