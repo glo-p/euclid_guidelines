@@ -32,7 +32,7 @@ Post. X.1 concentrates acceptance in three people, and three people cannot draft
 * GitHub team per guild `@company/guild-<book-slug>` listed as a reviewer (not code owner) in `CODEOWNERS` for that book's folder.
 * `README.md` of each book: a "Guild" row naming the team, its lead and its meeting cadence.
 * Open questions issue label `open-question:<book>` and a GitHub Project board per guild, generated from the README section by the `open-questions-sync` workflow (Prop. X.7).
-* Guild charter file `09-governance/guilds/<book-slug>.md` (added when a guild is formed) listing members and the open questions they hold.
+* Guild charter file `10-governance/guilds/<book-slug>.md` (added when a guild is formed) listing members and the open questions they hold.
 
 ## Conformance
 

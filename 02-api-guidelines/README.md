@@ -4,10 +4,10 @@ Book II governs every synchronous interface a service exposes: how it is named, 
 
 ## Contents
 
-| File | Contents |
-|---|---|
-| [`definitions.md`](definitions.md) | `Def. II.1` - `Def. II.18`: API, operation, collection, page, cursor, problem, edge, envelope, … |
-| [`postulates.md`](postulates.md) | `Post. II.1` - `Post. II.6`: HTTP semantics are authoritative, OpenAPI is the contract, JSON is the representation, the edge is the only ingress, … |
+| File                               | Contents                                                                                                                                            |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`definitions.md`](definitions.md) | `Def. II.1` - `Def. II.18`: API, operation, collection, page, cursor, problem, edge, envelope, …                                                    |
+| [`postulates.md`](postulates.md)   | `Post. II.1` - `Post. II.6`: HTTP semantics are authoritative, OpenAPI is the contract, JSON is the representation, the edge is the only ingress, … |
 
 ### Propositions
 

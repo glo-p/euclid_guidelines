@@ -26,19 +26,19 @@ Propositions ending in **Q.E.D.** ("which was to be demonstrated") establish a r
 
 | Book | Folder | Depth | Subject |
 |---|---|---|---|
-| I | [`00-foundations/`](00-foundations/README.md) | Complete | Definitions, postulates and common notions shared by every other book. Method for writing propositions. |
-| II | [`01-api-guidelines/`](01-api-guidelines/README.md) | **Detailed** | Synchronous HTTP/JSON APIs: naming, methods, errors, pagination, versioning, idempotency, concurrency, security, .NET construction. |
-| III | [`02-events/`](02-events/README.md) | **Detailed** | Asynchronous communication: event envelope, naming, schemas, outbox, idempotent consumers, ordering, retries, EventBridge/SQS topology, .NET construction. |
-| IV | [`03-shared-schemas/`](03-shared-schemas/README.md) | **Detailed** | The shared schema catalogue: Money, Problem Details, Page, Metadata, Identifier, Temporal types, Event Envelope - as JSON Schema and as C# types. |
-| V | [`04-security/`](04-security/README.md) | Scaffold | Identity, authorisation, secrets, data classification. |
-| VI | [`05-observability/`](05-observability/README.md) | Scaffold | Logs, metrics, traces, correlation, health, SLOs. |
-| VII | [`06-data-ownership/`](06-data-ownership/README.md) | Scaffold | Bounded contexts, data ownership, reporting, PII. |
-| VIII | [`07-infrastructure-aws/`](07-infrastructure-aws/README.md) | Scaffold | Accounts, networking, compute choices, IaC, environments. |
-| IX | [`08-versioning-and-deprecation/`](08-versioning-and-deprecation/README.md) | Scaffold | Lifecycle of any contract: introduce, evolve, deprecate, sunset. |
-| X | [`09-governance/`](09-governance/README.md) | Scaffold | How these guidelines change; ADRs; exceptions; conformance. |
-| XI | [`10-frontend-integration/`](10-frontend-integration/README.md) | Scaffold | How front-ends of any technology consume the APIs and schemas above. |
+| I | [`01-foundations/`](01-foundations/README.md) | Complete | Definitions, postulates and common notions shared by every other book. Method for writing propositions. |
+| II | [`02-api-guidelines/`](02-api-guidelines/README.md) | **Detailed** | Synchronous HTTP/JSON APIs: naming, methods, errors, pagination, versioning, idempotency, concurrency, security, .NET construction. |
+| III | [`03-events/`](03-events/README.md) | **Detailed** | Asynchronous communication: event envelope, naming, schemas, outbox, idempotent consumers, ordering, retries, EventBridge/SQS topology, .NET construction. |
+| IV | [`04-shared-schemas/`](04-shared-schemas/README.md) | **Detailed** | The shared schema catalogue: Money, Problem Details, Page, Metadata, Identifier, Temporal types, Event Envelope - as JSON Schema and as C# types. |
+| V | [`05-security/`](05-security/README.md) | Scaffold | Identity, authorisation, secrets, data classification. |
+| VI | [`06-observability/`](06-observability/README.md) | Scaffold | Logs, metrics, traces, correlation, health, SLOs. |
+| VII | [`07-data-ownership/`](07-data-ownership/README.md) | Scaffold | Bounded contexts, data ownership, reporting, PII. |
+| VIII | [`08-infrastructure-aws/`](08-infrastructure-aws/README.md) | Scaffold | Accounts, networking, compute choices, IaC, environments. |
+| IX | [`09-versioning-and-deprecation/`](09-versioning-and-deprecation/README.md) | Scaffold | Lifecycle of any contract: introduce, evolve, deprecate, sunset. |
+| X | [`10-governance/`](10-governance/README.md) | Scaffold | How these guidelines change; ADRs; exceptions; conformance. |
+| XI | [`11-frontend-integration/`](11-frontend-integration/README.md) | Scaffold | How front-ends of any technology consume the APIs and schemas above. |
 
-Templates for new definitions, propositions and ADRs are in [`templates/`](templates/). The normative JSON Schemas are in [`03-shared-schemas/schemas/`](03-shared-schemas/schemas/README.md) and the Spectral ruleset that checks Book II is in [`rulesets/spectral/`](rulesets/spectral/README.md).
+Templates for new definitions, propositions and ADRs are in [`templates/`](templates/). The normative JSON Schemas are in [`04-shared-schemas/schemas/`](04-shared-schemas/schemas/README.md) and the Spectral ruleset that checks Book II is in [`rulesets/spectral/`](rulesets/spectral/README.md).
 
 ## Numbering
 

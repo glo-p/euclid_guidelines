@@ -10,7 +10,7 @@
 
 ## Statement
 
-Every ADR (Def. X.3) MUST live in [`09-governance/adr/`](../adr/README.md) as a file named `ADR-nnnn-<kebab-title>.md`, numbered sequentially from `ADR-0001`, and MUST be listed in [`adr/README.md`](../adr/README.md) with its number, title, status and date. An ADR MUST NOT be deleted or renumbered; a decision that is reversed is recorded by a new ADR that marks the old one `Superseded by ADR-nnnn`. The first entry, [`ADR-0001`](../adr/ADR-0001-adopt-euclidean-guidelines.md), records the adoption of these guidelines and the canonical stack.
+Every ADR (Def. X.3) MUST live in [`10-governance/adr/`](../adr/README.md) as a file named `ADR-nnnn-<kebab-title>.md`, numbered sequentially from `ADR-0001`, and MUST be listed in [`adr/README.md`](../adr/README.md) with its number, title, status and date. An ADR MUST NOT be deleted or renumbered; a decision that is reversed is recorded by a new ADR that marks the old one `Superseded by ADR-nnnn`. The first entry, [`ADR-0001`](../adr/ADR-0001-adopt-euclidean-guidelines.md), records the adoption of these guidelines and the canonical stack.
 
 ## Given
 
@@ -30,10 +30,10 @@ By CN 8 a decision that is not recorded is not architecture, and Prop. I.4 makes
 
 ## Construction
 
-* Folder `09-governance/adr/` with `README.md` index and `ADR-nnnn-*.md` files from `templates/adr.md`.
+* Folder `10-governance/adr/` with `README.md` index and `ADR-nnnn-*.md` files from `templates/adr.md`.
 * CI `adr-lint`: filename pattern, contiguous numbering, header table fields, status vocabulary, `Superseded by` target exists, index row present and matching.
 * CI `adr-index-sync`: regenerates the index table from the files and fails if the committed index differs.
-* `git log --diff-filter=D -- 09-governance/adr/` checked in CI to fail any deletion.
+* `git log --diff-filter=D -- 10-governance/adr/` checked in CI to fail any deletion.
 
 ## Conformance
 

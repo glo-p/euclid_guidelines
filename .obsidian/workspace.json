@@ -1,0 +1,231 @@
+{
+  "main": {
+    "id": "5a8950235aa00ae9",
+    "type": "split",
+    "children": [
+      {
+        "id": "56a15baccebb97ce",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a6faf6b7da29aea9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "11-frontend-integration/definitions.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "definitions"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "634fb46f885d2078",
+    "type": "split",
+    "children": [
+      {
+        "id": "cf9979c50cee6ff1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d9e952288059ff19",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "50044c812b6d2867",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d224b32312a073d6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ad604eab8044c0b8",
+    "type": "split",
+    "children": [
+      {
+        "id": "5bf3486d73f9a9cc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4ba4eb2f18561d8d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "11-frontend-integration/definitions.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "409466d9513873f9",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "11-frontend-integration/definitions.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "ebcb7a02e1a6ebd7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6dfc4a2ea289b87e",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "37bddb3ecb74a240",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "11-frontend-integration/definitions.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "a6faf6b7da29aea9",
+  "lastOpenFiles": [
+    "01-foundations/definitions.md",
+    "01-foundations/common-notions.md",
+    "10-frontend-integration/definitions.md",
+    "01-foundations/postulates.md",
+    "01-foundations/method.md",
+    "01-foundations/README.md",
+    "01-foundations",
+    "02-api-guidelines/propositions/17-dotnet-construction.md",
+    "02-api-guidelines/propositions/16-health-endpoints.md",
+    "02-api-guidelines/propositions/13-rate-limiting.md",
+    "02-api-guidelines/propositions/15-long-running-operations.md",
+    "02-api-guidelines/propositions/14-caching.md",
+    "02-api-guidelines/propositions/10-headers-and-metadata.md",
+    "02-api-guidelines/propositions/12-authentication-and-authorisation.md",
+    "02-api-guidelines/propositions/11-json-conventions.md",
+    "02-api-guidelines/propositions/09-optimistic-concurrency.md",
+    "02-api-guidelines/propositions/07-versioning.md",
+    "02-api-guidelines/propositions/08-idempotency.md",
+    "02-api-guidelines/propositions/06-filtering-and-sorting.md",
+    "02-api-guidelines/propositions/05-cursor-pagination.md",
+    "02-api-guidelines/propositions/04-problem-details.md",
+    "02-api-guidelines/propositions/03-methods-and-status-codes.md",
+    "02-api-guidelines/propositions/02-resource-naming.md",
+    "02-api-guidelines/propositions/01-contract-first.md",
+    "02-api-guidelines/postulates.md",
+    "02-api-guidelines/propositions",
+    "02-api-guidelines/definitions.md",
+    "02-api-guidelines/README.md",
+    "02-api-guidelines",
+    "03-events/propositions",
+    "03-events",
+    "04-shared-schemas/schemas/shared/v1/timestamp.json",
+    "04-shared-schemas/schemas/shared/v1/resource-metadata.json",
+    "04-shared-schemas/schemas/shared/v1/problem-details.json",
+    "04-shared-schemas/schemas/shared/v1/period.json",
+    "04-shared-schemas/schemas/shared/v1/money.json",
+    "Untitled.canvas"
+  ]
+}
